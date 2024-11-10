@@ -2,9 +2,14 @@ import express from "express";
 import Connection from "./database/db.js";
 import dotenv from "dotenv";
 import DefaultData from "./default.js";
+import Router from "./routes/route.js";
+
+
+const app = express();
 
 dotenv.config();
-const app = express();
+
+app.use('/',Router);
 
 const port = 8000;
 

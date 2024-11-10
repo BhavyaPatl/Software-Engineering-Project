@@ -1,17 +1,18 @@
-import { Button, Dialog, TextField, Typography,styled,Box } from "@mui/material";
+import { Button, Dialog, TextField, Typography, styled, Box } from "@mui/material";
 import { useState } from "react";
 import loginimg from './Login.png';
 
+import { authenticateSignup } from "../../service/api";
+
 const Component = styled(Box)`
-  height: 70vh;
-  widht: 50vw;  
+  height: 75vh;
+  width: 50vw;   /* Corrected width */
 `;
 
-const Image = styled(Box)
-`
+const Image = styled(Box)`
     background: #d8ef47 url(${loginimg}) no-repeat center 75%;
     height: 100%;
-    width: 40%;
+    width: 32%;
     background-size: 100%;
     padding: 35px 25px;
     & > p , & > h5 {
@@ -19,7 +20,6 @@ const Image = styled(Box)
         font-weight: 600;
     }
 `;
-
 
 const Wrapper = styled(Box)`
     display: flex;
@@ -38,6 +38,7 @@ const LoginButton = styled(Button)`
     height: 48px;
     border-radius: 4px;
 `;
+
 const RequestOTP = styled(Button)`
     text-transform: none;
     background-color: #f3e84e;
@@ -58,51 +59,85 @@ const CreateAccount = styled(Typography)`
     color: #a70f0f;
     font-weight: 600;
     cursor: pointer;
-
 `;
 
+const accountInitialValue = {
+    login: {
+        view: 'login',
+        heading: 'Login',
+        subHeading: 'Get access to your Orders, Wishlists and Recommendations'
+    },
+    signup: {
+        view: 'signup',
+        heading: "Looks like you're new here!",
+        subHeading: 'Sign up with your mobile number to get started'
+    }
+};
 
-const LoginDialog = ({open, setOpen }) => {
+const signupInitialValues = {
+    firstname: '',
+    lastname: '',
+    username: '',
+    email: '',
+    password: '',
+    phone: ''
+};
+
+const LoginDialog = ({ open, setOpen }) => {
+    const [account, toggleAccount] = useState(accountInitialValue.login);
+    const [signup, setSignup] = useState(signupInitialValues);
 
     const handleClose = () => { 
         setOpen(false);
-    }
+        toggleAccount(accountInitialValue.login);
+    };
+
+    const toggleSignup = () => {
+        toggleAccount(accountInitialValue.signup);
+    };
+
+    const onInputChange = (e) => {
+        setSignup({ ...signup, [e.target.name]: e.target.value });
+        console.log("Updated signup data:", signup); // Added label to make log clearer
+    };
+
+    const signupUser =async ()=>{
+      let response =  await authenticateSignup(signup);
+    };
 
     return (
-        <Dialog open={open} onClose={handleClose} PaperProps={{sx:{maxWidth:'unset'}}} >
+        <Dialog open={open} onClose={handleClose} PaperProps={{ sx: { maxWidth: 'unset' } }}>
             <Component>
-            <Box style={{display:'flex',height:'100%'}}>
-                <Image>
-                    <Typography variant="h5">Login</Typography>
-                    <Typography style={{marginTop:20}}>Get access to your Orders, Wishlist and Recommendations</Typography>
-                </Image>
-                {
-                    true ?
-                    <Wrapper>
-                        <TextField label="Enter Email" variant="outlined" />
-                        <TextField label="Enter Password" variant="outlined" />
-                        <Text>By continuing, you agree to DealsDone's Terms of Use and Privacy Policy.</Text>
-                        <LoginButton>Login</LoginButton>
-                        <Typography style={{textAlign:"center"}}>OR</Typography>
-                        <RequestOTP>Request OTP</RequestOTP>
-                        <CreateAccount>New to DealsDone? Let's create an account</CreateAccount>
-                    </Wrapper>
-                    :
-                    <Wrapper>
-                        <TextField label="Enter Email" variant="outlined" />
-                        <RequestOTP>Request OTP</RequestOTP>
-                        <Text>By continuing, you agree to DealsDone's Terms of Use and Privacy Policy.</Text>
-                        <Typography style={{textAlign:"center"}}>OR</Typography>
-                        <LoginButton>Login</LoginButton>
-                        <CreateAccount>New to DealsDone? Let's create an account</CreateAccount>
-                    </Wrapper>
-                }
-                
-            </Box>    
+                <Box style={{ display: 'flex', height: '100%' }}>
+                    <Image>
+                        <Typography variant="h5">{account.heading}</Typography>
+                        <Typography style={{ marginTop: 20 }}>{account.subHeading}</Typography>
+                    </Image>
+                    {account.view === 'login' ? (
+                        <Wrapper>
+                            <TextField label="Enter Email" variant="outlined" />
+                            <TextField label="Enter Password" variant="outlined" />
+                            <Text>By continuing, you agree to DealsDone's Terms of Use and Privacy Policy.</Text>
+                            <LoginButton>Login</LoginButton>
+                            <Typography style={{ textAlign: "center" }}>OR</Typography>
+                            <RequestOTP>Request OTP</RequestOTP>
+                            <CreateAccount onClick={toggleSignup}>New to DealsDone? Let's create an account</CreateAccount>
+                        </Wrapper>
+                    ) : (
+                        <Wrapper>
+                            <TextField label="Enter Firstname" onChange={onInputChange} name="firstname" variant="outlined" />
+                            <TextField label="Enter Lastname" onChange={onInputChange} name="lastname" variant="outlined" />
+                            <TextField label="Enter Username" onChange={onInputChange} name="username" variant="outlined" />
+                            <TextField label="Enter Email" onChange={onInputChange} name="email" variant="outlined" />
+                            <TextField label="Enter Password" onChange={onInputChange} name="password" variant="outlined" />
+                            <TextField label="Enter PhoneNo" onChange={onInputChange} name="phone" variant="outlined" />
+                            <LoginButton onClick={()=>signupUser()}>Continue</LoginButton>
+                        </Wrapper>
+                    )}
+                </Box>
             </Component>
         </Dialog>
-    )
-
-}
+    );
+};
 
 export default LoginDialog;
