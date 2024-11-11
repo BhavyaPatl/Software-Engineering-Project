@@ -2,14 +2,18 @@
 import Header from './component/header/Header';
 import Home from './component/home/Home';
 
+import DataProvider from './context/DataProvider';
+
+import {box} from '@mui/material';
+
 function App() {
   return (
-    <div className="App">
+    <DataProvider>
       <Header />
-      <div style={{marginTop:54}}>
+      <box style={{marginTop:54}}>
         <Home />
-      </div>
-    </div>
+      </box>
+    </DataProvider>
   );
 }
 
