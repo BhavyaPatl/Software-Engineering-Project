@@ -1,4 +1,7 @@
-# Software Engineering Project - React with Material UI
+# DealsDone - An Online Marketplace Platform
+
+We have developed an online marketplace platform where users can buy and sell products.
+## Software Engineering Project - React with Material UI
 
 This is a software engineering project built with React and Material UI. It demonstrates the use of modern front-end technologies for creating a responsive and styled user interface.
 
