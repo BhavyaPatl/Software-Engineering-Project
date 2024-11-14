@@ -98,7 +98,13 @@ const Slide = ({ products, timer, title }) => {
             >
                 {
                     products.map(product => (
-                            <Box textAlign="center" style={{ padding: '25px 15px' }}>
+                            <Box textAlign="center"
+                            style={{
+                                padding: '25px 15px',
+                                margin: '0 0 0 5px',
+                                border: '1px solid black',  // Add border
+                                borderRadius: '8px'         // Optional: Add rounded corners
+                            }}>
                                 <Image src={product.url} alt="product" />
                                 <Text style={{ fontWeight: 600, color: '#212121' }}>{product.title.shortTitle}</Text>
                                 <Text style={{ color: 'green' }}>{product.discount}</Text>
