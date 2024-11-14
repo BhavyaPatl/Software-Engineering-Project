@@ -98,30 +98,21 @@ const Slide = ({ products, timer, title }) => {
             >
                 {
                     products.map(product => (
-<<<<<<< HEAD
-                            <Box textAlign="center"
-                            style={{
+                            
+                       
+                       
+                            <Link to={`product/${product.id}`} style={{textDecoration: 'none'}}>
+                                <Box textAlign="center"  style={{
                                 padding: '25px 15px',
                                 margin: '0 0 0 5px',
                                 border: '1px solid black',  // Add border
-                                borderRadius: '8px'         // Optional: Add rounded corners
-                            }}>
-                                <Image src={product.url} alt="product" />
-                                <Text style={{ fontWeight: 600, color: '#212121' }}>{product.title.shortTitle}</Text>
-                                <Text style={{ color: 'green' }}>{product.discount}</Text>
-                                <Text style={{ color: '#212121', opacity: '.6' }}>{product.tagline}</Text>
-                            </Box>
-                       
-=======
-                            <Link to={`product/${product.id}`} style={{textDecoration: 'none'}}>
-                                <Box textAlign="center" style={{ padding: '25px 15px' }}>
+                                borderRadius: '8px'      }}>
                                     <Image src={product.url} alt="product" />
                                     <Text style={{ fontWeight: 600, color: '#212121' }}>{product.title.shortTitle}</Text>
                                     <Text style={{ color: 'green' }}>{product.discount}</Text>
                                     <Text style={{ color: '#212121', opacity: '.6' }}>{product.tagline}</Text>
                                 </Box>
                             </Link>
->>>>>>> ed6e844bd316de46d2b636d10c7aa47af180b36f
                     ))
                 }
             </Carousel>
