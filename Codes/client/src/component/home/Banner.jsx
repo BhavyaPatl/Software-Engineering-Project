@@ -28,14 +28,18 @@ const Image = styled('img')({
 const Banner = () => {
     return (
         <Carousel  
+            swipeable={false}
+            draggable={false}
             responsive={responsive}
-            dotListClass="custom-dot-list-style"
             infinite={true}
             autoPlay={true}
-            swipeable={true}
-            draggable={true}
-            showDots={true}
-            autoPlaySpeed={4000}    
+            autoPlaySpeed={4000}
+            keyBoardControl={true}
+            showDots={false}
+            slidesToSlide={1}
+            containerClass="carousel-container"
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px" 
             
         >
            {

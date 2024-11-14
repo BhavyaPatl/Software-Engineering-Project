@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import NavBar from './NavBar';
 import Banner from './Banner';
 import Slide from './Slide';
+import MidSlide from './MidSlide';
+import MidSection from './MidSection';
+
 import {styled,Box} from '@mui/material';
 import { getProducts } from '../../redux/actions/productActions';
 import { useDispatch,useSelector } from 'react-redux';
@@ -29,7 +32,15 @@ const Home = () => {
             <NavBar />
             <Component>
                 <Banner />
-                <Slide products={products}/>
+                <MidSlide products={products} title="Deal of the Day" timer={true}/>
+                <MidSection/>
+                <Slide products={products} title="Discounts for you" timer={false}/>
+                <Slide products={products} title="Suggesting Items" timer={false}/>
+                <Slide products={products} title="Top Selection" timer={false}/>
+                <Slide products={products} title="Recommended Items" timer={false}/>
+                <Slide products={products} title="Trending offers" timer={false}/>
+                <Slide products={products} title="Season's top picks" timer={false}/>
+                <Slide products={products} title="top deals on Accessories" timer={false}/>
             </Component>
         </>
 
