@@ -30,16 +30,21 @@ const Container = styled(Box)
 
 const LoginButton = styled(Button)
 `
-    background-color: #ffffff;
-    color: #2874f0;
+    background-color: #051922;
+    color: #FFA500;
     text-transform: none;
-    padding: 5px 40px;
+    padding: 0px 0px;
     border-radius: 2px;
     Box-shadow: none;
-    font-weight: 600;
+    font-weight: 0;
     height: 32px;
     justify-content: center;
 
+`;
+
+const CartIcon = styled(Box)`
+    color: #ffffff;
+    padding: 5px;
 `;
 
 
@@ -63,11 +68,14 @@ const CustomButtons = () => {
 
             
                 
-            <Typography style={{ marginTop: 3, width: 135 }}>Become a Seller</Typography>
-            <Typography style={{ marginTop: 3 }}>More</Typography>
+            <Typography style={{ marginTop: 3, width: 135, color: '#ffffff' }}>Become a Seller</Typography>
+            <Typography style={{ marginTop: 3, color: '#ffffff' }}>More</Typography>
             <Container>
+                <CartIcon>
                 <ShoppingCart />
-                <Typography> Cart</Typography>
+                </CartIcon>
+                
+                <Typography style={{color: '#ffffff'}}> Cart</Typography>
             </Container>
             <LoginDialog open={open} setOpen={setOpen} />
         </Wrapper>

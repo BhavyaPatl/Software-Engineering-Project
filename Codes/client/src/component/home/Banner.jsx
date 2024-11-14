@@ -39,8 +39,7 @@ const Banner = () => {
             slidesToSlide={1}
             containerClass="carousel-container"
             dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-padding-40-px" 
-            
+            itemClass="carousel-item-padding-40-px"    
         >
            {
                 bannerData.map(data => (

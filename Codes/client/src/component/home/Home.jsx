@@ -32,15 +32,16 @@ const Home = () => {
             <NavBar />
             <Component>
                 <Banner />
-                <MidSlide products={products} title="Deal of the Day" timer={true}/>
+                <MidSlide products={products} title="Deals of the Day" timer={true}/>
                 <MidSection/>
-                <Slide products={products} title="Discounts for you" timer={false}/>
+                <Slide products={products} title="Discounts for You" timer={false}/>
                 <Slide products={products} title="Suggesting Items" timer={false}/>
                 <Slide products={products} title="Top Selection" timer={false}/>
+                <MidSection/>
                 <Slide products={products} title="Recommended Items" timer={false}/>
-                <Slide products={products} title="Trending offers" timer={false}/>
-                <Slide products={products} title="Season's top picks" timer={false}/>
-                <Slide products={products} title="top deals on Accessories" timer={false}/>
+                <Slide products={products} title="Trending Offers" timer={false}/>
+                <Slide products={products} title="Season's Top Picks" timer={false}/>
+                <Slide products={products} title="Top Deals on Accessories" timer={false}/>
             </Component>
         </>
 

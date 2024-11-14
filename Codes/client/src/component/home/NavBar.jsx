@@ -3,7 +3,7 @@ import { navData } from '../../constants/data';
 
 const Component = styled(Box)`
     display: flex;
-    margin: 55px 50px 0 50px;
+    margin: 10px 55px 10px 55px;
     justify-content: space-between;
 `;
 
@@ -13,16 +13,18 @@ const Container = styled(Box)`
     align-items: center; /* Center-align image and text */
     padding: 12px 12px;
     border: solid;
-    border-width: 1px;
+    border-width: 0px;
     border-radius: 100px; /* Adjust radius as needed */
 
     width: 100px;  /* Set desired width */
     height: 100px; /* Set the same height to make it circular */
     border-radius: 50%;
-    background-color: #3498db; /* Optional: Set a background color */
+    background-color: #D3D3D3; /* Optional: Set a background color */
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
 `;
 
 
@@ -37,10 +39,20 @@ const NavBar = () => {
     return (
         <Component>
             {navData.map((data, index) => (
+                <div style={{ marginTop: '0px' }}>
                 <Container key={index}>
-                    <img src={data.url} alt="nav" style={{ width: 64 }} />
-                    <Text style={{ textAlign: 'center' }}>{data.text}</Text>
+                   <img
+                        src={data.url}
+                        alt="nav"
+                        style={{
+                            width: '100px',
+                            height: '100px'   // Makes the image circular
+                        }}
+                    />
+                   
                 </Container>
+                 <Text style={{ textAlign: 'center' }}>{data.text}</Text>
+                 </div>
             ))}
         </Component>
     );

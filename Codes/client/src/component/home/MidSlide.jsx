@@ -5,6 +5,7 @@ import Slide from './Slide';
 
 const Component = styled(Box)`
     display: flex;
+    background: white;
 `;
 
 const LeftComponent = styled(Box)(({ theme }) => ({

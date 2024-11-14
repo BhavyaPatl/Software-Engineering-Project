@@ -3,6 +3,7 @@ import Carousel from 'react-multi-carousel';
 import "react-multi-carousel/lib/styles.css";
 import Countdown from 'react-countdown';
 import {Link} from 'react-router-dom';
+import shadows from '@mui/material/styles/shadows';
 
 const responsive = {
     desktop: {
@@ -21,7 +22,7 @@ const responsive = {
 
 const Component = styled(Box)`
     margin-top: 10px;
-    background: #FFFFFF;
+   // background: red;
 `;
 
 const Deal = styled(Box)`
@@ -34,6 +35,7 @@ const DealText = styled(Typography)`
     font-weight: 600;
     line-height: 32px;
     margin-right: 25px;
+    color: orange;
 `
 
 const Timer = styled(Box)`
@@ -70,8 +72,11 @@ const Slide = ({ products, timer, title }) => {
     
     return (
         <Component>
-            <Deal>
-                <DealText>{title}</DealText>
+            <Deal style={{background: 'white'}}>
+            <DealText>
+                    <span style={{ color: 'orange' }}>{title.split(' ')[0]}</span>{' '}
+                    <span style={{ color: 'black' }}>{title.split(' ').slice(1).join(' ')}</span>
+            </DealText>
                 {
                     timer && <Timer>
                                 <img src={timerURL} style={{ width: 24 }} alt='time clock' />
@@ -95,18 +100,21 @@ const Slide = ({ products, timer, title }) => {
                 // removeArrowOnDeviceType={["tablet", "mobile"]}
                 dotListClass="custom-dot-list-style"
                 itemClass="carousel-item-padding-40-px"
+                style={{ backgroundColor: '#FF5A00' }}
             >
                 {
                     products.map(product => (
                             
-                       
-                       
+        
                             <Link to={`product/${product.id}`} style={{textDecoration: 'none'}}>
                                 <Box textAlign="center"  style={{
                                 padding: '25px 15px',
-                                margin: '0 0 0 5px',
-                                border: '1px solid black',  // Add border
-                                borderRadius: '8px'      }}>
+                                margin: '10px 0 1px 10px',
+                                border: '1px solid grey',  // Add border
+                                borderRadius: '8px' ,
+                                backgroundColor: 'white',
+                                shadows: '1px 1px 1px 1px'
+                                }}>
                                     <Image src={product.url} alt="product" />
                                     <Text style={{ fontWeight: 600, color: '#212121' }}>{product.title.shortTitle}</Text>
                                     <Text style={{ color: 'green' }}>{product.discount}</Text>
