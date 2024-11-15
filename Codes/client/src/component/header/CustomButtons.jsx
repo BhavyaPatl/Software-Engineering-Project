@@ -32,47 +32,30 @@ const Container = styled(Box)(({theme}) =>({
     }
 }));
 
-const LoginButton = styled(Button)
-`
+const LoginButton = styled(Button)`
     background-color: #051922;
     color: #FFA500;
     text-transform: none;
-    padding: 5px 100px;
+    padding: 5px 100px 5px 50px; 
     border-radius: 2px;
-    Box-shadow: none;
-    font-weight: 0;
+    box-shadow: none;
     height: 32px;
     justify-content: center;
-
 `;
 
-const SellerButton = styled(Button)
-`
+const SellerButton = styled(Button)`
     background-color: #051922;
     color: #FFF;
     text-transform: none;
-    padding: 0px 0px;
+    padding: 0 50px 0 0; 
     border-radius: 2px;
-    Box-shadow: none;
+    box-shadow: none;
     font-weight: 0;
     height: 32px;
     justify-content: center;
-
 `;
 
-const SellerButton = styled(Button)
-`
-    background-color: #051922;
-    color: #FFF;
-    text-transform: none;
-    padding: 0px 0px;
-    border-radius: 2px;
-    Box-shadow: none;
-    font-weight: 0;
-    height: 32px;
-    justify-content: center;
 
-`;
 
 const CartIcon = styled(Box)`
     color: #ffffff;
@@ -105,7 +88,7 @@ const CustomButtons = () => {
             }
 
             <SellerButton variant="contained" onClick={() => openDialog2()}>Become a Seller</SellerButton>
-            <Typography style={{ marginTop: 3, color: '#ffffff' }}>More</Typography>
+            <Typography style={{ marginTop: 3, color: '#ffffff',paddingRight:50 }}>More</Typography>
             <Container>
                 <CartIcon>
                 <ShoppingCart />

@@ -1,5 +1,11 @@
 
-import { Dialog, Box, TextField, Typography, Button, styled } from '@mui/material';
+import { Dialog, Box, TextField, Typography, Button, styled ,IconButton, InputAdornment} from '@mui/material';
+import PasswordChecklist from 'react-password-checklist';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
+import MuiPhoneNumber from 'material-ui-phone-number';
+
 import { useState,useContext } from "react";
 import loginimg from './Login.png';
 import { authenticatesellerSignup, authenticatesellerLogin } from "../../service/api";
@@ -64,11 +70,11 @@ const CreateAccount = styled(Typography)`
 `;
 
 const Error = styled(Typography)`
-font-size: 10px;
-color:#ff6161;
-line-height:0;
-margin-top: 10px;
-font-weight:600;
+    font-size: 10px;
+    color:#ff6161;
+    line-height:0;
+    margin-top: 10px;
+    font-weight:600;
 `;
 
 const accountInitialValue = {
@@ -104,6 +110,9 @@ const BecomeSeller = ({open, setOpen}) => {
     const [signup, setSignup] = useState(signupInitialValues);
     const [login,setLogin] = useState(loginInitialValues);
     const [error,setError] = useState(false);
+    const [validemail, setvalidemail] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [passwordEntered, setPasswordEntered] = useState(false);
 
     const navigate = useNavigate();
 
@@ -112,16 +121,46 @@ const BecomeSeller = ({open, setOpen}) => {
     const handleClose = () => { 
         setOpen(false);
         toggleAccount(accountInitialValue.login);
+        setSignup(signupInitialValues);
         setError(false);
+        setvalidemail(false);
+        setShowPassword(false);
+        setPasswordEntered(false);
+    };
+
+    const handleKeyDown = (e) => {
+        if (!["Backspace", "Delete", "ArrowLeft", "ArrowRight"].includes(e.key) && !/^\d$/.test(e.key)) {
+            e.preventDefault();
+        }
     };
 
     const toggleSignup = () => {
         toggleAccount(accountInitialValue.signup);
     };
 
+    const validateEmail = (email) => {
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return regex.test(email);
+    };
+
     const onInputChange = (e) => {
+        const { name, value } = e.target;
+
+        if (name === 'email' && !validateEmail(value)) {
+            setvalidemail('Please enter a valid email address');
+        } else {
+            setvalidemail(false); // Clear error if email is valid
+        }
+        if (name === 'password') {
+            if (value) {
+                setPasswordEntered(true); 
+            } else {
+                setPasswordEntered(false); 
+            }
+        }
+        
         setSignup({ ...signup, [e.target.name]: e.target.value });
-        console.log("Updated signup data:", signup); // Added label to make log clearer
+        console.log("Updated signup data:", signup);
     };
    
     const onValueChange = (e)=>{
@@ -149,8 +188,16 @@ const BecomeSeller = ({open, setOpen}) => {
         navigate('./add-product')
     };
 
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleMouseDownPassword = (e) => {
+        e.preventDefault();
+    };
+
     return(
-        <Dialog open = {open} onClose={handleClose} PaperProps={{ sx: { maxWidth: 'unset' } }}>
+        <Dialog open={open} onClose={handleClose} PaperProps={{ sx: { maxWidth: 'unset' } }}>
             <Component>
                 <Box style={{ display: 'flex', height: '100%' }}>
                     <Image>
@@ -159,31 +206,77 @@ const BecomeSeller = ({open, setOpen}) => {
                     </Image>
                     {account.view === 'login' ? (
                         <Wrapper>
-                            <TextField label="Enter Username"  onChange={(e)=>onValueChange(e)} name="username"  variant="outlined" />
-                            {error && <Error>Please Enter valid username or Password</Error>}
-                            
-                            <TextField label="Enter Password" onChange={(e)=>onValueChange(e)} name="password" variant="outlined" />
-                            
+                            <TextField label="Enter Username" onChange={(e) => onValueChange(e)} name="username" variant="outlined" />
+                            {error && <Error>Pleasr Enter valid username or Password</Error>}
+
+                            <TextField label="Enter Password" onChange={(e) => onValueChange(e)} name="password" variant="outlined"
+                                type={showPassword ? 'text' : 'password'}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+
                             <Text>By continuing, you agree to DealsDone's Terms of Use and Privacy Policy.</Text>
-                            <LoginButton onClick={()=>loginUser()}>Login</LoginButton>
+                            <LoginButton onClick={() => loginUser()}>Login</LoginButton>
                             <Typography style={{ textAlign: "center" }}>OR</Typography>
                             <RequestOTP>Request OTP</RequestOTP>
                             <CreateAccount onClick={toggleSignup}>New to DealsDone? Let's create an account</CreateAccount>
-                    </Wrapper>
-                    ) : ( 
+                        </Wrapper>
+                    ) : (
                         <Wrapper>
-                            <TextField label="Enter Firstname" onChange={(e)=>onInputChange(e)} name="firstname" variant="outlined" />
-                            <TextField label="Enter Lastname" onChange={(e)=>onInputChange(e)} name="lastname" variant="outlined" />
-                            <TextField label="Enter Username" onChange={(e)=>onInputChange(e)} name="username" variant="outlined" />
-                            <TextField label="Enter Email" onChange={(e)=>onInputChange(e)} name="email" variant="outlined" />
-                            <TextField label="Enter Password" onChange={(e)=>onInputChange(e)} name="password" variant="outlined" />
-                            <TextField label="Enter PhoneNo" onChange={(e)=>onInputChange(e)} name="phone" variant="outlined" />
-                            <LoginButton onClick={()=>signupUser()}>Continue</LoginButton>
+                            <TextField label="Enter Firstname" onChange={(e) => onInputChange(e)} name="firstname" variant="outlined" />
+                            <TextField label="Enter Lastname" onChange={(e) => onInputChange(e)} name="lastname" variant="outlined" />
+                            <TextField label="Enter Username" onChange={(e) => onInputChange(e)} name="username" variant="outlined" />
+
+                            <TextField label="Enter Email" onChange={(e) => onInputChange(e)} name="email" variant="outlined" />
+                            {validemail && <Error>{validemail}</Error>}
+
+                            <TextField label="Enter Password" onChange={(e) => onInputChange(e)} value={signup.password} name="password" variant="outlined"
+                                type={showPassword ? 'text' : 'password'}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                            { passwordEntered && <PasswordChecklist
+                                rules={["minLength", "specialChar", "number", "capital", "lowercase"]}
+                                minLength={8}
+                                value={signup.password}
+                            />
+                            }
+                            <MuiPhoneNumber defaultCountry={'in'}
+                                label="Enter PhoneNo"
+                                value={signup.phone}
+                                onChange={(value) => setSignup({ ...signup, phone: value })} 
+                                onKeyDown={handleKeyDown}
+                                name="phone"
+                                variant="outlined" />
+                           
+                            <LoginButton onClick={() => signupUser()}>Continue</LoginButton>
                         </Wrapper>
                     )}
                 </Box>
             </Component>
-         </Dialog>
+        </Dialog>
     )
 };
 
