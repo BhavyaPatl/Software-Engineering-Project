@@ -1,12 +1,10 @@
-import { Button, Dialog, TextField, Typography, styled, Box } from "@mui/material";
 
+import { Dialog, Box, TextField, Typography, Button, styled } from '@mui/material';
 import { useState,useContext } from "react";
-
 import loginimg from './Login.png';
-
-import { authenticateSignup, authenticateLogin } from "../../service/api";
-
+import { authenticatesellerSignup, authenticatesellerLogin } from "../../service/api";
 import { DataContext } from "../../context/DataProvider";
+import { useNavigate } from 'react-router-dom';
 
 const Component = styled(Box)`
   height: 75vh;
@@ -14,7 +12,7 @@ const Component = styled(Box)`
 `;
 
 const Image = styled(Box)`
-    background: #d8ef47 url(${loginimg}) no-repeat center 75%;
+    background: #051922 url(${loginimg}) no-repeat center 75%;
     height: 100%;
     width: 32%;
     background-size: 100%;
@@ -45,7 +43,7 @@ const LoginButton = styled(Button)`
 
 const RequestOTP = styled(Button)`
     text-transform: none;
-    background-color: #f3e84e;
+    background-color: #FFA500;
     color: #a70f0f;
     height: 48px;
     border-radius: 4px;
@@ -81,7 +79,7 @@ const accountInitialValue = {
     },
     signup: {
         view: 'signup',
-        heading: "Looks like you're new here!",
+        heading: "Hello new Seller",
         subHeading: 'Sign up with your mobile number to get started'
     }
 };
@@ -100,11 +98,14 @@ const loginInitialValues = {
     password:''
 };
 
-const LoginDialog = ({ open, setOpen }) => {
+const BecomeSeller = ({open, setOpen}) => {
+
     const [account, toggleAccount] = useState(accountInitialValue.login);
     const [signup, setSignup] = useState(signupInitialValues);
     const [login,setLogin] = useState(loginInitialValues);
     const [error,setError] = useState(false);
+
+    const navigate = useNavigate();
 
     const {setAccount} = useContext(DataContext);
 
@@ -122,33 +123,34 @@ const LoginDialog = ({ open, setOpen }) => {
         setSignup({ ...signup, [e.target.name]: e.target.value });
         console.log("Updated signup data:", signup); // Added label to make log clearer
     };
-
+   
     const onValueChange = (e)=>{
         setLogin({...login,[e.target.name]: e.target.value});
-        console.log(signup);
     };
 
-    const loginUser =async()=>{
-        let response =await authenticateLogin(login);
-        if(response.status === 200){
+    const loginUser = async () => {
+        let response = await authenticatesellerLogin(login);
+        if (response.status === 200) {
             handleClose();
             setAccount(response.data.data.firstname);
-            
-        }
-        else{
+            // Redirect to the desired URL
+            //window.location.href = 'https://themewagon.github.io/fruitkha/';
+            navigate('./add-product')
+        } else {
             setError(true);
         }
     };
 
     const signupUser =async ()=>{
-      let response =  await authenticateSignup(signup);
-      if(!response) return;
-      handleClose();
-      setAccount(signup.firstname);
+        let response =  await authenticatesellerSignup(signup);
+        if(!response) return;
+        handleClose();
+        setAccount(signup.firstname);
+        navigate('./add-product')
     };
 
-    return (
-        <Dialog open={open} onClose={handleClose} PaperProps={{ sx: { maxWidth: 'unset' } }}>
+    return(
+        <Dialog open = {open} onClose={handleClose} PaperProps={{ sx: { maxWidth: 'unset' } }}>
             <Component>
                 <Box style={{ display: 'flex', height: '100%' }}>
                     <Image>
@@ -158,7 +160,7 @@ const LoginDialog = ({ open, setOpen }) => {
                     {account.view === 'login' ? (
                         <Wrapper>
                             <TextField label="Enter Username"  onChange={(e)=>onValueChange(e)} name="username"  variant="outlined" />
-                            {error && <Error>Pleasr Enter valid username or Password</Error>}
+                            {error && <Error>Please Enter valid username or Password</Error>}
                             
                             <TextField label="Enter Password" onChange={(e)=>onValueChange(e)} name="password" variant="outlined" />
                             
@@ -167,8 +169,8 @@ const LoginDialog = ({ open, setOpen }) => {
                             <Typography style={{ textAlign: "center" }}>OR</Typography>
                             <RequestOTP>Request OTP</RequestOTP>
                             <CreateAccount onClick={toggleSignup}>New to DealsDone? Let's create an account</CreateAccount>
-                        </Wrapper>
-                    ) : (
+                    </Wrapper>
+                    ) : ( 
                         <Wrapper>
                             <TextField label="Enter Firstname" onChange={(e)=>onInputChange(e)} name="firstname" variant="outlined" />
                             <TextField label="Enter Lastname" onChange={(e)=>onInputChange(e)} name="lastname" variant="outlined" />
@@ -181,8 +183,8 @@ const LoginDialog = ({ open, setOpen }) => {
                     )}
                 </Box>
             </Component>
-        </Dialog>
-    );
+         </Dialog>
+    )
 };
 
-export default LoginDialog;
+export default BecomeSeller;

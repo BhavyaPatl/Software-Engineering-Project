@@ -1,6 +1,7 @@
 
 import Header from './component/header/Header';
 import Home from './component/home/Home';
+import AddProduct from './component/BecomeSeller/AddProduct'; 
 import DetailView from './component/details/DetailView';
 import DataProvider from './context/DataProvider';
 
@@ -17,6 +18,8 @@ function App() {
         <Routes>
           <Route path='/' element={ <Home /> }/>
           <Route path='/product/:id' element={<DetailView />} />
+          <Route path='/add-product' element={<AddProduct />} /> {/* This route should load AddProduct */}
+
         </Routes>
       </Box>
       </BrowserRouter>

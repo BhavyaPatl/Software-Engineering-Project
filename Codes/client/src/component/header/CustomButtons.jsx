@@ -7,6 +7,7 @@ import { DataContext } from '../../context/DataProvider';
 
 //components 
 import LoginDialog from '../login/LoginDialog';
+import BecomeSeller from '../BecomeSeller/BecomeSeller';
 
 import Profile from './Profile';
 
@@ -42,6 +43,20 @@ const LoginButton = styled(Button)
 
 `;
 
+const SellerButton = styled(Button)
+`
+    background-color: #051922;
+    color: #FFF;
+    text-transform: none;
+    padding: 0px 0px;
+    border-radius: 2px;
+    Box-shadow: none;
+    font-weight: 0;
+    height: 32px;
+    justify-content: center;
+
+`;
+
 const CartIcon = styled(Box)`
     color: #ffffff;
     padding: 5px;
@@ -58,6 +73,12 @@ const CustomButtons = () => {
         setOpen(true);
     }
 
+    const [open2, setOpen2] = useState(false);
+
+    const openDialog2 = () => {
+        setOpen2(true);
+    }
+
     return (
         <Wrapper>
 
@@ -66,9 +87,7 @@ const CustomButtons = () => {
                 <LoginButton variant="contained" onClick={() => openDialog()}>Login</LoginButton>
             }
 
-            
-                
-            <Typography style={{ marginTop: 3, width: 135, color: '#ffffff' }}>Become a Seller</Typography>
+            <SellerButton variant="contained" onClick={() => openDialog2()}>Become a Seller</SellerButton>
             <Typography style={{ marginTop: 3, color: '#ffffff' }}>More</Typography>
             <Container>
                 <CartIcon>
@@ -78,6 +97,7 @@ const CustomButtons = () => {
                 <Typography style={{color: '#ffffff'}}> Cart</Typography>
             </Container>
             <LoginDialog open={open} setOpen={setOpen} />
+            <BecomeSeller open={open2} setOpen={setOpen2}/>
         </Wrapper>
     )
 }
