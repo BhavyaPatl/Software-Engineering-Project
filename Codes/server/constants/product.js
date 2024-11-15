@@ -12,7 +12,6 @@ export const products = [
             cost: 625,
             discount: '47%'
         },
-        quantity: 1,
         description: 'This electric kettle from Pigeon will soon become a travelers best friend, a hostelite saviour and an answer to all the midnight cravings. With this handy appliance, you can boil water and use it to make instant noodles, packet soup, coffee and green tea.',
         discount: 'Extra 10% Off', 
         tagline: 'Deal of the day' 
