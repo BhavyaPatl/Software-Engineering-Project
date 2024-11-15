@@ -72,15 +72,6 @@ const Header = () => {
     return (
     <StyleHeader>
         <Toolbar style={{minHeight:55}}>
-<<<<<<< Updated upstream
-        <Component to='/'>
-            <img src={img1} alt="DealsDone" style={{marginRight:15,height:25,width:95}}/>
-        </Component>
-        <Search />
-        <CustomButtonWrapper>
-            <CustomButton />
-        </CustomButtonWrapper>
-=======
             <MenuButton color="inherit" onClick={handleOpen}>
                 <Menu/>
             </MenuButton>
@@ -102,7 +93,6 @@ const Header = () => {
             <CustomButtonWrapper>
                 <CustomButton />
             </CustomButtonWrapper>
->>>>>>> Stashed changes
         </Toolbar>
     </StyleHeader>
     )
