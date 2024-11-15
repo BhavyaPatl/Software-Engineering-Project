@@ -36,7 +36,7 @@ const LoginButton = styled(Button)
     background-color: #051922;
     color: #FFA500;
     text-transform: none;
-    padding: 0px 0px;
+    padding: 5px 100px;
     border-radius: 2px;
     Box-shadow: none;
     font-weight: 0;
@@ -71,8 +71,8 @@ const CustomButtons = () => {
 
             
                 
-            <Typography style={{ marginTop: 3, width: 135, color: '#ffffff' }}>Become a Seller</Typography>
-            <Typography style={{ marginTop: 3, color: '#ffffff' }}>More</Typography>
+            <Typography style={{ marginTop: 3, width: 135, color: '#ffffff',paddingRight:50 }}>Become a Seller</Typography>
+            <Typography style={{ marginTop: 3, color: '#ffffff' ,paddingRight:50 }}>More</Typography>
             <Container>
                 <CartIcon>
                 <ShoppingCart />

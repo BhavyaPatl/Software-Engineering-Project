@@ -82,12 +82,7 @@ const Header = () => {
 
             <Component to='/'>
                 <img src={img1} alt="DealsDone" style={{marginRight:15,height:25,width:95}}/>
-                    <Box style={{display:'flex'}}>
-                        <Subheading>Keep&nbsp;
-                        <Box component="span" style={{color:'#387f1b'}}>Exploring</Box>
-                        </Subheading>
-                        <PlusImage src={sublogo} alt='sub-logo'/>
-                    </Box>
+                    
             </Component>
             <Search />
             <CustomButtonWrapper>
