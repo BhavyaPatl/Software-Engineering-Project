@@ -5,6 +5,7 @@ import { useDispatch , useSelector } from 'react-redux';
 import { getProductDetails } from "../../redux/actions/productActions";
 import { Box, Typography, styled, Grid, colors } from '@mui/material';
 import ActionItem  from './ActionItem';
+import ProductDetail from "./ProductDetail";
 
 const Component = styled(Box)`
     background: #F2F2F2;
@@ -28,7 +29,6 @@ const RightContainer = styled(Grid)`
 
 const DetailView= () =>{
     
-    const fassured = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png'
 
     const { id } = useParams();
     const dispatch = useDispatch();
@@ -51,16 +51,7 @@ const DetailView= () =>{
                         <ActionItem product = {product} />
                     </Grid>
                     <RightContainer item lg = {8} md={8} sm={8} xs={12}> 
-                        <Typography> {product.title.longTitle} </Typography>
-                        <Typography styled={{marginTop : 5, color : '#878787', fontsize : 14}}> 
-                            8 rating & 1 review
-                            <Box component="span"><img src = {fassured} style={{width: 77, marginLeft: 20}}/></Box>
-                        </Typography>
-                        <Typography>
-                            <span style={{ fontSize: 28 }}>₹{product.price.cost}</span>&nbsp;&nbsp;&nbsp; 
-                            <span style={{ color: '#878787' }}><strike>₹{product.price.mrp}</strike></span>&nbsp;&nbsp;&nbsp;
-                            <span style={{ color: '#388E3C' }}>{product.price.discount} off</span>
-                        </Typography>
+                        <ProductDetail product = {product}/>
                     </RightContainer>
                 </Grid>   
             }

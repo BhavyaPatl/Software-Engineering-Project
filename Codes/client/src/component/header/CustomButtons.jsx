@@ -11,28 +11,45 @@ import BecomeSeller from '../BecomeSeller/BecomeSeller';
 
 import Profile from './Profile';
 
-
-
-const Wrapper = styled(Box)
-`
-    display: flex;
-    margin: 0 3% 0 auto;
-    & > button, & > p , & > div {
-        margin-right: 40px;
-        font-size: 16px;
-        align-items: center;
+const Wrapper = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    margin: '0 3% 0 auto',
+    '& > *': {
+        marginRight : 40,
+        fontsize : 16,
+        alignItems : 'center'
+    },
+    [theme.breakpoints.down('md')]:{
+        display:'block'
     }
-`;
+}));
+    
 
-const Container = styled(Box)
-`
-    display: flex;
-`;
+const Container = styled(Box)(({theme}) =>({
+    display: 'flex',
+    [theme.breakpoints.down('md')]:{
+        display:'block'
+    }
+}));
 
 const LoginButton = styled(Button)
 `
     background-color: #051922;
     color: #FFA500;
+    text-transform: none;
+    padding: 5px 100px;
+    border-radius: 2px;
+    Box-shadow: none;
+    font-weight: 0;
+    height: 32px;
+    justify-content: center;
+
+`;
+
+const SellerButton = styled(Button)
+`
+    background-color: #051922;
+    color: #FFF;
     text-transform: none;
     padding: 0px 0px;
     border-radius: 2px;

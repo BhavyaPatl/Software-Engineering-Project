@@ -1,4 +1,5 @@
 import { Button, Dialog, TextField, Typography, styled, Box } from "@mui/material";
+import PasswordChecklist from 'react-password-checklist';
 
 import { useState,useContext } from "react";
 
@@ -15,7 +16,7 @@ const Component = styled(Box)`
 
 const Image = styled(Box)`
     background: #d8ef47 url(${loginimg}) no-repeat center 75%;
-    height: 100%;
+    height: 115%;
     width: 32%;
     background-size: 100%;
     padding: 35px 25px;
@@ -66,11 +67,11 @@ const CreateAccount = styled(Typography)`
 `;
 
 const Error = styled(Typography)`
-font-size: 10px;
-color:#ff6161;
-line-height:0;
-margin-top: 10px;
-font-weight:600;
+    font-size: 10px;
+    color:#ff6161;
+    line-height:0;
+    margin-top: 10px;
+    font-weight:600;
 `;
 
 const accountInitialValue = {
@@ -105,6 +106,7 @@ const LoginDialog = ({ open, setOpen }) => {
     const [signup, setSignup] = useState(signupInitialValues);
     const [login,setLogin] = useState(loginInitialValues);
     const [error,setError] = useState(false);
+    const [validemail,setvalidemail] = useState(false);
 
     const {setAccount} = useContext(DataContext);
 
@@ -114,11 +116,29 @@ const LoginDialog = ({ open, setOpen }) => {
         setError(false);
     };
 
+    const handleKeyDown = (e) =>{
+        if(!["Backspace", "Delete", "ArrowLeft", "ArrowRight"].includes(e.key) && !/^\d$/.test(e.key)){
+            e.preventDefault();
+        }
+    };
+
     const toggleSignup = () => {
         toggleAccount(accountInitialValue.signup);
     };
 
+    const validateEmail = (email) => {
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return regex.test(email);
+    };
+
     const onInputChange = (e) => {
+        const { name, value } = e.target;
+        
+        if (name === 'email' && !validateEmail(value)) {
+            setvalidemail('Please enter a valid email address');
+        } else {
+            setvalidemail(false); // Clear error if email is valid
+        }
         setSignup({ ...signup, [e.target.name]: e.target.value });
         console.log("Updated signup data:", signup); // Added label to make log clearer
     };
@@ -174,8 +194,15 @@ const LoginDialog = ({ open, setOpen }) => {
                             <TextField label="Enter Lastname" onChange={(e)=>onInputChange(e)} name="lastname" variant="outlined" />
                             <TextField label="Enter Username" onChange={(e)=>onInputChange(e)} name="username" variant="outlined" />
                             <TextField label="Enter Email" onChange={(e)=>onInputChange(e)} name="email" variant="outlined" />
-                            <TextField label="Enter Password" onChange={(e)=>onInputChange(e)} name="password" variant="outlined" />
-                            <TextField label="Enter PhoneNo" onChange={(e)=>onInputChange(e)} name="phone" variant="outlined" />
+                            {validemail && <Error>{validemail}</Error>}
+                            <TextField label="Enter Password" onChange={(e)=>onInputChange(e)} value={signup.password} name="password" variant="outlined" />
+                            <PasswordChecklist
+                                rules={["minLength","specialChar","number","capital","lowercase"]}
+                                minLength={8}
+                                value={signup.password}
+                                // valueAgain={passwordAgain}
+                            />
+                            <TextField label="Enter PhoneNo" onChange={(e)=>onInputChange(e)}  onKeyDown={handleKeyDown} name="phone" variant="outlined" />
                             <LoginButton onClick={()=>signupUser()}>Continue</LoginButton>
                         </Wrapper>
                     )}

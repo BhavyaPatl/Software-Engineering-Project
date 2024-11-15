@@ -1,8 +1,11 @@
-import {AppBar,Box, Toolbar , Typography, styled} from '@mui/material';
+import {AppBar,Box, IconButton, Toolbar, Drawer, List, ListItem, Typography, styled} from '@mui/material';
 import Search from './Search';
 import img1 from './logo.jpg'
 import CustomButton from './CustomButtons';
 import {Link} from 'react-router-dom';
+import { Menu } from '@mui/icons-material';
+import { useState } from 'react';
+import CustomButtons from './CustomButtons';
 
 const StyleHeader = styled(AppBar)`
     background: #051922;
@@ -22,30 +25,69 @@ const Subheading = styled(Typography)`
     font-size: 10px;
 `;
 
-
-//css camelCase in css
 const PlusImage = styled('img')({
     width: 10,
     marginLeft: 4,
     height: 10
 });
 
-const CustomButtonWrapper = styled(Box)`
-    margin: 0 5% 0 auto;
-`;
-const logo ='https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/flipkart-plus_8d85f4.png';
-const sublogo='https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/plus_aef861.png';
+const CustomButtonWrapper = styled('span')(({ theme }) => ({ 
+    margin: '0 5% 0 auto', 
+    [theme.breakpoints.down('md')]: {
+        display: 'none'
+    }
+}));
+
+const MenuButton = styled(IconButton)(({ theme }) => ({
+    display: 'none',
+    [theme.breakpoints.down('sm')]: {
+        display: 'block'
+    }
+}));
+
 const Header = () => {
+    const logo ='https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/flipkart-plus_8d85f4.png';
+    const sublogo='https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/plus_aef861.png';
+
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () =>{
+        setOpen(true);
+    }
+
+    const handleClose = () =>{
+        setOpen(false);
+    }
+
+    const list = () => (
+        <Box style={{ width: 200 }} onClick={handleClose}>
+            <List>
+                <listItem button>
+                    <CustomButtons />
+                </listItem>
+            </List>
+        </Box>
+    );
+
     return (
     <StyleHeader>
         <Toolbar style={{minHeight:55}}>
-        <Component to='/'>
-            <img src={img1} alt="DealsDone" style={{marginRight:15,height:25,width:95}}/>
-        </Component>
-        <Search />
-        <CustomButtonWrapper>
-            <CustomButton />
-        </CustomButtonWrapper>
+            <MenuButton color="inherit" onClick={handleOpen}>
+                <Menu/>
+            </MenuButton>
+
+            <Drawer open={open} onClose={handleClose}>
+                {list()}
+            </Drawer>
+
+            <Component to='/'>
+                <img src={img1} alt="DealsDone" style={{marginRight:15,height:25,width:95}}/>
+                    
+            </Component>
+            <Search />
+            <CustomButtonWrapper>
+                <CustomButton />
+            </CustomButtonWrapper>
         </Toolbar>
     </StyleHeader>
     )
