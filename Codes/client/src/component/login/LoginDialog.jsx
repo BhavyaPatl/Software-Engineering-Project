@@ -1,7 +1,11 @@
-import { Button, Dialog, TextField, Typography, styled, Box } from "@mui/material";
+import { Button, Dialog, TextField, Typography, styled, Box, IconButton, InputAdornment } from "@mui/material";
 import PasswordChecklist from 'react-password-checklist';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-import { useState,useContext } from "react";
+import MuiPhoneNumber from 'material-ui-phone-number';
+
+import { useState, useContext } from "react";
 
 import loginimg from './Login.png';
 
@@ -97,27 +101,34 @@ const signupInitialValues = {
 };
 
 const loginInitialValues = {
-    username:'',
-    password:''
+    username: '',
+    password: ''   
 };
 
 const LoginDialog = ({ open, setOpen }) => {
     const [account, toggleAccount] = useState(accountInitialValue.login);
     const [signup, setSignup] = useState(signupInitialValues);
-    const [login,setLogin] = useState(loginInitialValues);
-    const [error,setError] = useState(false);
-    const [validemail,setvalidemail] = useState(false);
+    const [login, setLogin] = useState(loginInitialValues);
+    const [error, setError] = useState(false);
+    const [validemail, setvalidemail] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [passwordEntered, setPasswordEntered] = useState(false);
 
-    const {setAccount} = useContext(DataContext);
 
-    const handleClose = () => { 
+    const { setAccount } = useContext(DataContext);
+
+    const handleClose = () => {
         setOpen(false);
         toggleAccount(accountInitialValue.login);
+        setSignup(signupInitialValues);
         setError(false);
+        setvalidemail(false);
+        setShowPassword(false);
+        setPasswordEntered(false);
     };
 
-    const handleKeyDown = (e) =>{
-        if(!["Backspace", "Delete", "ArrowLeft", "ArrowRight"].includes(e.key) && !/^\d$/.test(e.key)){
+    const handleKeyDown = (e) => {
+        if (!["Backspace", "Delete", "ArrowLeft", "ArrowRight"].includes(e.key) && !/^\d$/.test(e.key)) {
             e.preventDefault();
         }
     };
@@ -133,14 +144,22 @@ const LoginDialog = ({ open, setOpen }) => {
 
     const onInputChange = (e) => {
         const { name, value } = e.target;
-        
+
         if (name === 'email' && !validateEmail(value)) {
             setvalidemail('Please enter a valid email address');
         } else {
             setvalidemail(false); // Clear error if email is valid
         }
+        if (name === 'password') {
+            if (value) {
+                setPasswordEntered(true); 
+            } else {
+                setPasswordEntered(false); 
+            }
+        }
+        
         setSignup({ ...signup, [e.target.name]: e.target.value });
-        console.log("Updated signup data:", signup); // Added label to make log clearer
+        console.log("Updated signup data:", signup);
     };
 
     const onValueChange = (e)=>{
@@ -148,24 +167,32 @@ const LoginDialog = ({ open, setOpen }) => {
         console.log(signup);
     };
 
-    const loginUser =async()=>{
-        let response =await authenticateLogin(login);
-        if(response.status === 200){
+    const loginUser = async () => {
+        let response = await authenticateLogin(login);
+        if (response.status === 200) {
             handleClose();
             setAccount(response.data.data.firstname);
-            
         }
-        else{
+        else {
             setError(true);
         }
     };
 
-    const signupUser =async ()=>{
-      let response =  await authenticateSignup(signup);
-      if(!response) return;
-      handleClose();
-      setAccount(signup.firstname);
+    const signupUser = async () => {
+        let response = await authenticateSignup(signup);
+        if (!response) return;
+        handleClose();
+        setAccount(signup.firstname);
     };
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleMouseDownPassword = (e) => {
+        e.preventDefault();
+    };
+
 
     return (
         <Dialog open={open} onClose={handleClose} PaperProps={{ sx: { maxWidth: 'unset' } }}>
@@ -177,33 +204,72 @@ const LoginDialog = ({ open, setOpen }) => {
                     </Image>
                     {account.view === 'login' ? (
                         <Wrapper>
-                            <TextField label="Enter Username"  onChange={(e)=>onValueChange(e)} name="username"  variant="outlined" />
+                            <TextField label="Enter Username" onChange={(e) => onValueChange(e)} name="username" variant="outlined" />
                             {error && <Error>Pleasr Enter valid username or Password</Error>}
-                            
-                            <TextField label="Enter Password" onChange={(e)=>onValueChange(e)} name="password" variant="outlined" />
-                            
+
+                            <TextField label="Enter Password" onChange={(e) => onValueChange(e)} name="password" variant="outlined"
+                                type={showPassword ? 'text' : 'password'}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+
                             <Text>By continuing, you agree to DealsDone's Terms of Use and Privacy Policy.</Text>
-                            <LoginButton onClick={()=>loginUser()}>Login</LoginButton>
+                            <LoginButton onClick={() => loginUser()}>Login</LoginButton>
                             <Typography style={{ textAlign: "center" }}>OR</Typography>
                             <RequestOTP>Request OTP</RequestOTP>
                             <CreateAccount onClick={toggleSignup}>New to DealsDone? Let's create an account</CreateAccount>
                         </Wrapper>
                     ) : (
                         <Wrapper>
-                            <TextField label="Enter Firstname" onChange={(e)=>onInputChange(e)} name="firstname" variant="outlined" />
-                            <TextField label="Enter Lastname" onChange={(e)=>onInputChange(e)} name="lastname" variant="outlined" />
-                            <TextField label="Enter Username" onChange={(e)=>onInputChange(e)} name="username" variant="outlined" />
-                            <TextField label="Enter Email" onChange={(e)=>onInputChange(e)} name="email" variant="outlined" />
+                            <TextField label="Enter Firstname" onChange={(e) => onInputChange(e)} name="firstname" variant="outlined" />
+                            <TextField label="Enter Lastname" onChange={(e) => onInputChange(e)} name="lastname" variant="outlined" />
+                            <TextField label="Enter Username" onChange={(e) => onInputChange(e)} name="username" variant="outlined" />
+
+                            <TextField label="Enter Email" onChange={(e) => onInputChange(e)} name="email" variant="outlined" />
                             {validemail && <Error>{validemail}</Error>}
-                            <TextField label="Enter Password" onChange={(e)=>onInputChange(e)} value={signup.password} name="password" variant="outlined" />
-                            <PasswordChecklist
-                                rules={["minLength","specialChar","number","capital","lowercase"]}
+
+                            <TextField label="Enter Password" onChange={(e) => onInputChange(e)} value={signup.password} name="password" variant="outlined"
+                                type={showPassword ? 'text' : 'password'}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                            { passwordEntered && <PasswordChecklist
+                                rules={["minLength", "specialChar", "number", "capital", "lowercase"]}
                                 minLength={8}
                                 value={signup.password}
-                                // valueAgain={passwordAgain}
                             />
-                            <TextField label="Enter PhoneNo" onChange={(e)=>onInputChange(e)}  onKeyDown={handleKeyDown} name="phone" variant="outlined" />
-                            <LoginButton onClick={()=>signupUser()}>Continue</LoginButton>
+                            }
+                            <MuiPhoneNumber defaultCountry={'in'}
+                                label="Enter PhoneNo"
+                                value={signup.phone}
+                                onChange={(value) => setSignup({ ...signup, phone: value })} 
+                                onKeyDown={handleKeyDown}
+                                name="phone"
+                                variant="outlined" />
+                           
+                            <LoginButton onClick={() => signupUser()}>Continue</LoginButton>
                         </Wrapper>
                     )}
                 </Box>

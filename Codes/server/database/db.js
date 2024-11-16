@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 export const Connection =async(username,password) =>
 {
-    const url = `mongodb+srv://${username}:${password}@ecommerce.11wyq.mongodb.net/?retryWrites=true&w=majority&appName=Ecommerce`;
+    const url = `mongodb+srv://${username}:${password}@marketplace.dem5a.mongodb.net/?retryWrites=true&w=majority&appName=Marketplace`;
     try {
         await mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true });
         console.log("Database connected successfully");

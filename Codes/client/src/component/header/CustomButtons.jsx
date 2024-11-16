@@ -39,21 +39,18 @@ const LoginButton = styled(Button)`
     text-transform: none;
     padding: 5px 30px;
     border-radius: 2px;
-    Box-shadow: none;
-    font-weight: 0;
+    box-shadow: none;
     height: 32px;
     justify-content: center;
-
 `;
 
-const SellerButton = styled(Button)
-`
+const SellerButton = styled(Button)`
     background-color: #051922;
     color: #fff;
     text-transform: none;
-    padding: 0px 0px;
+    padding: 0 50px 0 0; 
     border-radius: 2px;
-    Box-shadow: none;
+    box-shadow: none;
     font-weight: 0;
     height: 32px;
     justify-content: center;
