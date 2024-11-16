@@ -20,12 +20,19 @@ const Container = styled(Grid)(({ theme }) => ({
     }
 }))
 
-const RightContainer = styled(Grid)`
-    margin-top: 50px;
-    & > p {
-        margin-top: 10px;
+const RightContainer = styled(Grid)(({ theme }) => ({
+    margin: '50px 0px 0px 0px',
+     
+    "& > p": {
+        marginTop: '10px',
+    },
+
+    [theme.breakpoints.down('md')]: {
+        margin: '20px 0px 0px 10px',
     }
-`
+}));
+
+    
 
 const DetailView= () =>{
     

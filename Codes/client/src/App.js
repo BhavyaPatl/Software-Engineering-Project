@@ -4,7 +4,7 @@ import Home from './component/home/Home';
 import AddProduct from './component/BecomeSeller/AddProduct'; 
 import DetailView from './component/details/DetailView';
 import DataProvider from './context/DataProvider';
-
+import Cart from './component/cart/Cart';
 import {Box} from '@mui/material';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -19,7 +19,7 @@ function App() {
           <Route path='/' element={ <Home /> }/>
           <Route path='/product/:id' element={<DetailView />} />
           <Route path='/add-product' element={<AddProduct />} /> {/* This route should load AddProduct */}
-
+          <Route path='/cart' element={<Cart />} />
         </Routes>
       </Box>
       </BrowserRouter>

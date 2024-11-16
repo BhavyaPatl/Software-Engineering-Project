@@ -42,12 +42,11 @@ const ProductDetail= ({product}) =>{
             <Typography> {product.title.longTitle} </Typography>
             <Typography styled={{marginTop : 5, color : '#878787', fontsize : 14}}> 
                 8 rating & 1 review
-                <Box component="span"><img src = {fassured} style={{width: 77, marginLeft: 20}}/></Box>
             </Typography>
             <Typography>
-                <span style={{ fontSize: 28 }}>₹{product.price.cost}</span>&nbsp;&nbsp;&nbsp; 
-                <span style={{ color: '#878787' }}><strike>₹{product.price.mrp}</strike></span>&nbsp;&nbsp;&nbsp;
-                <span style={{ color: '#388E3C' }}>{product.price.discount} off</span>
+                <Box component="span" style={{ fontSize: 28 }}>₹{product.price.cost}</Box>&nbsp;&nbsp;&nbsp; 
+                <Box component="span" style={{ color: '#878787' }}><strike>₹{product.price.mrp}</strike></Box>&nbsp;&nbsp;&nbsp;
+                <Box component="span" style={{ color: '#388E3C' }}>{product.price.discount} off</Box>
             </Typography>
             <Typography>Available offers</Typography>
             <SmallText>

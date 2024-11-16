@@ -5,14 +5,14 @@ import Slide from './Slide';
 
 const Component = styled(Box)`
     display: flex;
-    background: white;
+    
 `;
 
 const LeftComponent = styled(Box)(({ theme }) => ({
     width: '83%',
     [theme.breakpoints.down('md')]: {
-        width: '100%'
-    }
+         width: '100%'
+    }    
 }));
 
 

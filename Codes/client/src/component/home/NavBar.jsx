@@ -1,11 +1,22 @@
 import { Box, Typography, styled } from '@mui/material';
 import { navData } from '../../constants/data';
 
-const Component = styled(Box)`
-    display: flex;
-    margin: 10px 55px 10px 55px;
-    justify-content: space-between;
-`;
+const Component = styled(Box)(({theme})=>({
+    display: 'flex',
+    margin: '10px 80px 10px 80px',
+    justifyContent: 'space-between',
+    overflow: 'overlay',
+    background: '#fff',  
+    "&::-webkit-scrollbar": {
+        display: 'none'
+    },
+    [theme.breakpoints.down('md')]: {
+        margin: '10px 0px 10px 0px'
+    }
+
+}));
+    
+
 
 const Container = styled(Box)`
     display: flex;

@@ -34,8 +34,10 @@ const DealText = styled(Typography)`
     font-size: 22px;
     font-weight: 600;
     line-height: 32px;
-    margin-right: 25px;
+    margin-right: auto ;
+    margin-left: auto ;
     color: orange;
+    text-align: center;
 `
 
 const Timer = styled(Box)`
@@ -46,8 +48,8 @@ const Timer = styled(Box)`
 `;
 
 const ViewAllButton = styled(Button)`
-    margin-left: auto;
-    background-color: #2874f0;
+    // margin-left: auto;
+    background-color: #FFA500;
     border-radius: 2px;
     font-size: 13px;
 `;
@@ -83,9 +85,16 @@ const Slide = ({ products, timer, title }) => {
                                 <Countdown date={Date.now() + 5.04e+7} renderer={renderer} />
                         </Timer>
                 }
-                <ViewAllButton variant="contained" color="primary">View All</ViewAllButton>
+                <ViewAllButton
+                        variant="contained"
+                        color=""
+                        sx={{ color: "white" }}
+                        >
+                        View All
+                </ViewAllButton>
+
             </Deal>
-            <Divider />
+            {/* <Divider /> */}
             <Carousel
                 responsive={responsive}
                 swipeable={false}
@@ -113,7 +122,8 @@ const Slide = ({ products, timer, title }) => {
                                 border: '1px solid grey',  // Add border
                                 borderRadius: '8px' ,
                                 backgroundColor: 'white',
-                                shadows: '1px 1px 1px 1px'
+                                shadows: '1px 1px 1px 1px',
+                               // width: '200px'
                                 }}>
                                     <Image src={product.url} alt="product" />
                                     <Text style={{ fontWeight: 600, color: '#212121' }}>{product.title.shortTitle}</Text>
