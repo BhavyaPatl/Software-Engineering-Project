@@ -1,6 +1,6 @@
 import {AppBar,Box, IconButton, Toolbar, Drawer, List, ListItem, Typography, styled} from '@mui/material';
 import Search from './Search';
-import img1 from './logo.jpg'
+import img1 from './logo.png'
 import CustomButton from './CustomButtons';
 import {Link} from 'react-router-dom';
 import { Menu } from '@mui/icons-material';
@@ -81,7 +81,7 @@ const Header = () => {
             </Drawer>
 
             <Component to='/'>
-                <img src={img1} alt="DealsDone" style={{marginRight:15,height:25,width:95}}/>
+                <img src={img1} alt="DealsDone" style={{marginRight:15,height:210,width:180}}/>
                     
             </Component>
             <Search />
