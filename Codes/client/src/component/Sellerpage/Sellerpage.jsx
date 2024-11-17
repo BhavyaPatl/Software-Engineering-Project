@@ -88,7 +88,7 @@ function SellerPage() {
       </Box>
 
       {/* Footer */}
-      <Box sx={{ backgroundColor: '#051922', padding: 3, textAlign: 'center', color: 'white' }}>
+      <Box style={{ backgroundColor: '#051922', padding: 20, textAlign: 'center', color: 'white', marginTop: 95 }}>
         <Typography variant="body1">© 2024 DealsDone | All rights reserved.</Typography>
       </Box>
     </div>

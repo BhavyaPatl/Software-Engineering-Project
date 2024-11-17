@@ -65,7 +65,7 @@ const Text = styled(Typography)`
 `
 
       
-const Slide = ({ products, timer, title }) => {
+const StaticSlide = ({ products,  title }) => {
     const timerURL = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/timer_a73398.svg';
 
     const renderer = ({ hours, minutes, seconds }) => {
@@ -79,12 +79,6 @@ const Slide = ({ products, timer, title }) => {
                     <span style={{ color: 'orange' }}>{title.split(' ')[0]}</span>{' '}
                     <span style={{ color: 'black' }}>{title.split(' ').slice(1).join(' ')}</span>
             </DealText>
-                {
-                    timer && <Timer>
-                                <img src={timerURL} style={{ width: 24 }} alt='time clock' />
-                                <Countdown date={Date.now() + 5.04e+7} renderer={renderer} />
-                        </Timer>
-                }
                 <ViewAllButton
                         variant="contained"
                         color=""
@@ -101,7 +95,7 @@ const Slide = ({ products, timer, title }) => {
                 draggable={false}
                 centerMode={true}
                 infinite={true}
-                autoPlay={true}
+                autoPlay={false}
                 autoPlaySpeed={10000}
                 keyBoardControl={true}
                 showDots={false}
@@ -116,14 +110,14 @@ const Slide = ({ products, timer, title }) => {
                             
         
                             <Link to={`product/${product.id}`} style={{textDecoration: 'none'}}>
-                                <Box textAlign="center"  
-                                style={{
+                                <Box textAlign="center"  style={{
                                 padding: '25px 15px',
                                 margin: '10px 0 1px 10px',
-                                border: '1px solid grey',  
+                                border: '1px solid grey',  // Add border
                                 borderRadius: '8px' ,
                                 backgroundColor: 'white',
-                                shadows: '1px 1px 1px 1px'
+                                shadows: '1px 1px 1px 1px',
+                               // width: '200px'
                                 }}>
                                     <Image src={product.url}  alt="product" />
                                     <Text style={{ fontWeight: 600, color: '#212121', whiteSpace: 'nowrap' }}>{product.title.shortTitle}</Text>
@@ -138,4 +132,4 @@ const Slide = ({ products, timer, title }) => {
     )
 }
 
-export default Slide;
+export default StaticSlide;

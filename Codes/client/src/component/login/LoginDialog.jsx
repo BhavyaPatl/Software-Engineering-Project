@@ -7,22 +7,21 @@ import MuiPhoneNumber from 'material-ui-phone-number';
 
 import { useState, useContext } from "react";
 
-import loginimg from './Login.png';
-
+import logo from '../home/header/logo.png'
 import { authenticateSignup, authenticateLogin } from "../../service/api";
 
 import { DataContext } from "../../context/DataProvider";
 
 const Component = styled(Box)`
-  height: 75vh;
-  width: 50vw;   /* Corrected width */
+  height: 90vh;
+  width: 50vw;   
 `;
 
 const Image = styled(Box)`
-    background: #d8ef47 url(${loginimg}) no-repeat center 75%;
-    height: 115%;
+    background: #051922 url(${logo}) no-repeat left 100%;
+    height: auto;
+    background-size: 90%;
     width: 32%;
-    background-size: 100%;
     padding: 35px 25px;
     & > p , & > h5 {
         color: #ffffff;
@@ -199,7 +198,7 @@ const LoginDialog = ({ open, setOpen }) => {
             <Component>
                 <Box style={{ display: 'flex', height: '100%' }}>
                     <Image>
-                        <Typography variant="h5">{account.heading}</Typography>
+                        <Typography variant="h5" style={{color: '#ffa500'}}>{account.heading}</Typography>
                         <Typography style={{ marginTop: 20 }}>{account.subHeading}</Typography>
                     </Image>
                     {account.view === 'login' ? (
@@ -228,7 +227,7 @@ const LoginDialog = ({ open, setOpen }) => {
                             <LoginButton onClick={() => loginUser()}>Login</LoginButton>
                             <Typography style={{ textAlign: "center" }}>OR</Typography>
                             <RequestOTP>Request OTP</RequestOTP>
-                            <CreateAccount onClick={toggleSignup}>New to DealsDone? Let's create an account</CreateAccount>
+                            <CreateAccount onClick={toggleSignup} style={{marginTop: 'auto'}}>New to DealsDone? Let's create an account</CreateAccount>
                         </Wrapper>
                     ) : (
                         <Wrapper>

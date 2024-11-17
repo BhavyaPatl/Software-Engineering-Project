@@ -5,23 +5,22 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import MuiPhoneNumber from 'material-ui-phone-number';
-
 import { useState,useContext } from "react";
-import loginimg from './Login.png';
+import logo from '../../home/header/logo.png'
 import { authenticatesellerSignup, authenticatesellerLogin } from "../../../service/api";
 import { DataContext } from "../../../context/DataProvider";
 import { useNavigate } from 'react-router-dom';
 
 const Component = styled(Box)`
-  height: 75vh;
+  height: 90vh;
   width: 50vw;   /* Corrected width */
 `;
 
 const Image = styled(Box)`
-    background: #051922 url(${loginimg}) no-repeat center 75%;
-    height: 100%;
+    background: #051922 url(${logo}) no-repeat left 110%;
+    height: auto;
     width: 32%;
-    background-size: 100%;
+    background-size: 90%;
     padding: 35px 25px;
     & > p , & > h5 {
         color: #ffffff;
@@ -195,7 +194,7 @@ const BecomeSeller = ({open, setOpen}) => {
             <Component>
                 <Box style={{ display: 'flex', height: '100%' }}>
                     <Image>
-                        <Typography variant="h5">{account.heading}</Typography>
+                        <Typography variant="h5" style={{color: '#ffa500'}}>{account.heading}</Typography>
                         <Typography style={{ marginTop: 20 }}>{account.subHeading}</Typography>
                     </Image>
                     {account.view === 'login' ? (
@@ -224,7 +223,7 @@ const BecomeSeller = ({open, setOpen}) => {
                             <LoginButton onClick={() => loginUser()}>Login</LoginButton>
                             <Typography style={{ textAlign: "center" }}>OR</Typography>
                             <RequestOTP>Request OTP</RequestOTP>
-                            <CreateAccount onClick={toggleSignup}>New to DealsDone? Let's create an account</CreateAccount>
+                            <CreateAccount onClick={toggleSignup} style={{marginTop: 'auto'}}>New to DealsDone? Let's create an account</CreateAccount>
                         </Wrapper>
                     ) : (
                         <Wrapper>

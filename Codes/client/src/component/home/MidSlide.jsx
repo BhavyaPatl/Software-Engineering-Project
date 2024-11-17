@@ -26,6 +26,10 @@ const RightComponent = styled(Box)(({ theme }) => ({
     textAlign: 'center',
     [theme.breakpoints.down('md')]: {
         display: 'none'
+    },
+    '& img': {
+        padding: '10px 5px 5px 5px', 
+        
     }
 }));
 
@@ -44,7 +48,7 @@ const MidSlide = ({ products, title, timer }) => {
                 />
             </LeftComponent>
             <RightComponent>
-                <img src={adURL} alt="ad" style={{width: 217}}/>
+                <img src={adURL} alt="ad" style={{width: 220}}/>
             </RightComponent>
         </Component>
     )

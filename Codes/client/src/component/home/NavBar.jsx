@@ -3,10 +3,11 @@ import { navData } from '../../constants/data';
 
 const Component = styled(Box)(({theme})=>({
     display: 'flex',
-    margin: '10px 80px 10px 80px',
+    margin: '65px 0px 0px 0px',
     justifyContent: 'space-between',
     overflow: 'overlay',
     background: '#fff',  
+    padding: '2px 80px 2px 80px',
     "&::-webkit-scrollbar": {
         display: 'none'
     },
@@ -20,17 +21,15 @@ const Component = styled(Box)(({theme})=>({
 
 const Container = styled(Box)`
     display: flex;
-    flex-direction: column; /* Make items stack vertically */
-    align-items: center; /* Center-align image and text */
+    flex-direction: column; 
+    align-items: center; 
     padding: 12px 12px;
     border: solid;
     border-width: 0px;
-    border-radius: 100px; /* Adjust radius as needed */
-
-    width: 100px;  /* Set desired width */
-    height: 100px; /* Set the same height to make it circular */
+    width: 100px;  
+    height: 100px;
     border-radius: 50%;
-    background-color: #D3D3D3; /* Optional: Set a background color */
+    background-color: #D3D3D3; 
     display: flex;
     align-items: center;
     justify-content: center;

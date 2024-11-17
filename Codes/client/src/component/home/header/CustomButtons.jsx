@@ -28,6 +28,7 @@ const Container = styled(Link)(({theme}) =>({
     display: 'flex',
     textDecoration: 'none',
     color: '#ffffff',
+    marginRight: 0,
     [theme.breakpoints.down('md')]:{
         display:'block'
     }
@@ -37,7 +38,7 @@ const LoginButton = styled(Button)`
     background-color: #051922;
     color: #FFA500;
     text-transform: none;
-    padding: 5px 30px;
+    padding: 5px 7px;
     border-radius: 2px;
     box-shadow: none;
     height: 32px;
@@ -48,17 +49,27 @@ const SellerButton = styled(Button)`
     background-color: #051922;
     color: #fff;
     text-transform: none;
-    padding: 0 50px 0 0; 
+    padding: 5px 7px;
     border-radius: 2px;
     box-shadow: none;
     font-weight: 0;
     height: 32px;
     justify-content: center;
-    min-width: 150px; 
     white-space: nowrap;
 
 `;
 
+const MoreButton = styled(Button)`
+    background-color: #051922;
+    color: #FFA500;
+    text-transform: none;
+    padding: '5px 7px 5px 3px';
+    border-radius: 2px;
+    box-shadow: none;
+    height: 32px;
+    justify-content: center;
+    fontSize:16;
+`
 const CustomButtons = () => {
 
     const [open, setOpen] = useState(false);
@@ -82,16 +93,16 @@ const CustomButtons = () => {
 
             {
                 account ? <Profile account={account} setAccount={setAccount}/> : 
-                <LoginButton variant="contained" onClick={() => openDialog()}>Login</LoginButton>
+                <LoginButton variant="contained" onClick={() => openDialog()} style={{fontSize:16}}>Login</LoginButton>
             }
 
-            <SellerButton variant="contained" onClick={() => sellerpage()}>Become a Seller</SellerButton>
-            <Typography style={{ marginTop: 3, color: '#ffffff' }}>More</Typography>
+            <SellerButton variant="contained" onClick={() => sellerpage()} style={{fontSize:16}}>Become a Seller</SellerButton>
+            <MoreButton variant="contained" style={{fontSize:16}} >More</MoreButton>
             <Container to="/cart">
                 <Badge badgeContent={cartItems?.length} color="primary">
                     <ShoppingCart />
                 </Badge>
-                <Typography style={{color: '#ffffff', marginLeft: 10}}> Cart</Typography>
+                <Typography style={{color: '#ffffff', marginLeft: 10, fontSize:16}}> Cart</Typography>
 
             </Container>
             <LoginDialog open={open} setOpen={setOpen} />
