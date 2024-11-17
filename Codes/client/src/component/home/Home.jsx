@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 //Component for Home page
+import Header from './header/Header';
 import NavBar from './NavBar';
 import Banner from './Banner';
 import Slide from './Slide';
@@ -29,6 +30,7 @@ const Home = () => {
     }, [dispatch])
     return (
         <>
+            <Header />
             <NavBar />
             <Component>
                 <Banner />

@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-
 export const Connection =async(username,password) =>
 {
     const url = `mongodb+srv://${username}:${password}@marketplace.dem5a.mongodb.net/?retryWrites=true&w=majority&appName=Marketplace`;

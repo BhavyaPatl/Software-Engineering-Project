@@ -8,8 +8,8 @@ import MuiPhoneNumber from 'material-ui-phone-number';
 
 import { useState,useContext } from "react";
 import loginimg from './Login.png';
-import { authenticatesellerSignup, authenticatesellerLogin } from "../../service/api";
-import { DataContext } from "../../context/DataProvider";
+import { authenticatesellerSignup, authenticatesellerLogin } from "../../../service/api";
+import { DataContext } from "../../../context/DataProvider";
 import { useNavigate } from 'react-router-dom';
 
 const Component = styled(Box)`
@@ -114,8 +114,6 @@ const BecomeSeller = ({open, setOpen}) => {
     const [showPassword, setShowPassword] = useState(false);
     const [passwordEntered, setPasswordEntered] = useState(false);
 
-    const navigate = useNavigate();
-
     const {setAccount} = useContext(DataContext);
 
     const handleClose = () => { 
@@ -172,9 +170,6 @@ const BecomeSeller = ({open, setOpen}) => {
         if (response.status === 200) {
             handleClose();
             setAccount(response.data.data.firstname);
-            // Redirect to the desired URL
-            //window.location.href = 'https://themewagon.github.io/fruitkha/';
-            navigate('./add-product')
         } else {
             setError(true);
         }
@@ -185,7 +180,6 @@ const BecomeSeller = ({open, setOpen}) => {
         if(!response) return;
         handleClose();
         setAccount(signup.firstname);
-        navigate('./add-product')
     };
 
     const handleClickShowPassword = () => {

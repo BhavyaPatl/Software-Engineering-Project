@@ -1,5 +1,6 @@
 import { Box, Grid, Typography, styled, Button} from "@mui/material";
 import { useSelector } from "react-redux";
+import Header from '../home/header/Header'
 import CartItem from "./CartItem";
 import TotalView from "./TotalView";
 import EmptyCart from "./EmptyCart";
@@ -16,7 +17,7 @@ const ButtonWrapper = styled(Box)`
     box-shadow: 0 -2px 10px 0 rgb(0 0 0 / 10%);
     border-top: 1px solid #f0f0f0;
 `
-const Header = styled(Box)`
+const CHeader = styled(Box)`
     padding: 15px 24px;
     background: #fff;
 `
@@ -44,15 +45,16 @@ const Cart = () => {
     
     return (
         <>
+            <Header />
             {
                 cartItems.length?
                 <Container container>
                     <LeftComponent item lg={9} md={9} sm={12} xs={12}>
-                        <Header> 
+                        <CHeader> 
                             <Typography> 
                                 My Cart ({cartItems.length})
                             </Typography>
-                        </Header> 
+                        </CHeader> 
                         {
                             cartItems.map(item => (
                                 <CartItem item ={item} />

@@ -3,11 +3,11 @@ import { Box, Typography,  Button, styled, Badge } from '@mui/material';
 import { ShoppingCart } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { DataContext } from '../../context/DataProvider';
+import { DataContext } from '../../../context/DataProvider';
+import { useNavigate } from 'react-router-dom';
 
 //components 
-import LoginDialog from '../login/LoginDialog';
-import BecomeSeller from '../BecomeSeller/BecomeSeller';
+import LoginDialog from '../../login/LoginDialog';
 import Profile from './Profile';
 
 const Wrapper = styled(Box)(({ theme }) => ({
@@ -66,15 +66,15 @@ const CustomButtons = () => {
     const {account,setAccount} = useContext(DataContext);
 
     const {cartItems} = useSelector(state => state.cart);
+
+    const navigate = useNavigate();
     
     const openDialog = () => {
         setOpen(true);
     }
 
-    const [open2, setOpen2] = useState(false);
-
-    const openDialog2 = () => {
-        setOpen2(true);
+    const sellerpage = () => {
+        navigate('./sellerpage')
     }
 
     return (
@@ -85,7 +85,7 @@ const CustomButtons = () => {
                 <LoginButton variant="contained" onClick={() => openDialog()}>Login</LoginButton>
             }
 
-            <SellerButton variant="contained" onClick={() => openDialog2()}>Become a Seller</SellerButton>
+            <SellerButton variant="contained" onClick={() => sellerpage()}>Become a Seller</SellerButton>
             <Typography style={{ marginTop: 3, color: '#ffffff' }}>More</Typography>
             <Container to="/cart">
                 <Badge badgeContent={cartItems?.length} color="primary">
@@ -95,7 +95,6 @@ const CustomButtons = () => {
 
             </Container>
             <LoginDialog open={open} setOpen={setOpen} />
-            <BecomeSeller open={open2} setOpen={setOpen2}/>
         </Wrapper>
     )
 }
