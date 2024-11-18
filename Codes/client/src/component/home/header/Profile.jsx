@@ -1,62 +1,69 @@
 import { useState } from 'react';
-import {Box,Typography,Menu,MenuItem,styled} from '@mui/material'
-
+import { Box, Typography, Menu, MenuItem, styled } from '@mui/material';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 const Component = styled(Menu)`
-    margin-top:5px;
+    margin-top: 5px;
 `;
 
 const B = styled(Box)`
-margin-right:20px;
-cursor:pointer;
+    margin-right: 20px;
+    cursor: pointer;
 `;
 
 const Logout = styled(Typography)`
-    font-size:14px;
-    margin-left:20px;
+    font-size: 14px;
+    margin-left: 20px;
 `;
 
-
-
-const Profile = ({account,setAccount})=>{
-
-    const [open,setOpen] = useState(false);
+const Profile = ({ account, setAccount }) => {
+    const [open, setOpen] = useState(null);
     const navigate = useNavigate();
 
-    const handleClick = (event) =>{
+    const handleClick = (event) => {
         setOpen(event.currentTarget);
-    }
+    };
 
-    const handleClose = ()=>{
-        setOpen(false);
-    }
+    const handleClose = () => {
+        setOpen(null);
+    };
 
-    const logoutUser =()=>{
-        // Cookies.remove('token');
-        localStorage.removeItem('token');
-        localStorage.removeItem('islogedin');
+    const logoutUser = () => {
         setAccount('');
-        navigate('/')
-    }
+        navigate('/');
+    };
+
+    const goToProfile = () => {
+        navigate('/profilepage');  // You can change this to your profile page route
+        handleClose();
+    };
 
     return (
-    <B>
-        <box onClick={handleClick}><Typography styled ={{marginTop : 2 , cursor:'pointer'}}>{account}</Typography></box>
-        <Component
-        anchorEl={open}
-        open={Boolean(open)}
-        onClose={handleClose}
-        >
-        
-        <MenuItem onClick= {() => {handleClose(); logoutUser();}}>
-        <PowerSettingsNewIcon color="primary" fontsize="small"/>
-        <Logout>Logout</Logout></MenuItem>
-      </Component>
-    </B>
-    )
-}
+        <B>
+            <Box onClick={handleClick}>
+                <Typography>{account}</Typography>
+            </Box>
+            <Component
+                anchorEl={open}
+                open={Boolean(open)}
+                onClose={handleClose}
+            >
+                {/* Profile Button */}
+                <MenuItem onClick={goToProfile}>
+                    <AccountCircleIcon color="primary" fontSize="small" />
+                    <Logout>Profile</Logout>
+                </MenuItem>
+
+                {/* Logout Button */}
+                <MenuItem onClick={() => { handleClose(); logoutUser(); }}>
+                    <PowerSettingsNewIcon color="primary" fontSize="small" />
+                    <Logout>Logout</Logout>
+                </MenuItem>
+            </Component>
+        </B>
+    );
+};
 
 export default Profile;
