@@ -79,3 +79,25 @@ export const addProduct = async (data) => {
         return error.response;
     }
 }
+
+export const authenticateForgotPasswordforSeller = async (data)=>{
+    try{
+        console.log("success");
+        return await axios.post(`${URL}/forgot-password-seller`,data)
+        
+    }
+    catch(error){
+        console.log('Error while calling forgot-password api',error);
+    }
+}
+export const authenticateVerifyOtpforSeller = async (data)=>{
+    try{
+        console.log("success");
+        return await axios.post(`${URL}/verify-otp-seller`,data)
+        
+    }
+    catch(error){
+        console.log('Error while calling verify-otp api',error);
+    }
+}
+

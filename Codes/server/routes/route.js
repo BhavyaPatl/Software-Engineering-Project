@@ -2,7 +2,7 @@ import express from 'express';
 
 import { userSignup , userLogin, forgot_password, verify_otp} from '../controller/user-controller.js';
 import { getProducts, getProductById } from '../controller/product-controller.js';
-import { sellerSignup, sellerLogin} from '../controller/seller-controller.js'
+import { sellerSignup, sellerLogin,forgot_password_seller,verify_otp_seller} from '../controller/seller-controller.js'
 import { addProduct } from '../controller/addProduct-controller.js';
 import { authenticateTokenSeller } from '../middleware/authentication.js';
 
@@ -16,6 +16,9 @@ router.post('/signup',userSignup);
 router.post('/login',userLogin);
 router.post('/forgot-password',forgot_password);
 router.post('/verify-otp',verify_otp);
+
+router.post('/forgot-password-seller',forgot_password_seller);
+router.post('/verify-otp-seller',verify_otp_seller);
 
 router.get('/products',getProducts);
 router.get('/product/:id', getProductById);

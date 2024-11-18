@@ -143,7 +143,6 @@ const LoginDialog = ({ open, setOpen }) => {
         setShowPassword(false);
         setPasswordEntered(false);
         setEmail(emailInitialValue);
-
     };
 
     const handleKeyDown = (e) => {

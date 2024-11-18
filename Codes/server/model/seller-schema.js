@@ -5,7 +5,7 @@ const sellerSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim:true,
-        min:5,
+        min:1,
         max:20
     },
     lastname:{
