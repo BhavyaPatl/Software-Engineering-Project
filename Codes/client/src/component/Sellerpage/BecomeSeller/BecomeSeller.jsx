@@ -10,6 +10,7 @@ import logo from '../../home/header/logo.png'
 import { authenticatesellerSignup, authenticatesellerLogin } from "../../../service/api";
 import { DataContext } from "../../../context/DataProvider";
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Component = styled(Box)`
   height: 90vh;
@@ -167,8 +168,9 @@ const BecomeSeller = ({open, setOpen}) => {
     const loginUser = async () => {
         let response = await authenticatesellerLogin(login);
         if (response.status === 200) {
+            // Cookies.set('token', response.data.token, {expires: 7});
             handleClose();
-            setAccount(response.data.data.firstname);
+            setAccount(response.data.user.firstname);
         } else {
             setError(true);
         }
@@ -176,7 +178,9 @@ const BecomeSeller = ({open, setOpen}) => {
 
     const signupUser =async ()=>{
         let response =  await authenticatesellerSignup(signup);
+        console.log("response is" , response);
         if(!response) return;
+        // Cookies.set('token', response.data.token, {expires: 7});
         handleClose();
         setAccount(signup.firstname);
     };

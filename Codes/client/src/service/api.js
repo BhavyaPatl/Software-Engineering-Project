@@ -32,7 +32,7 @@ export const authenticatesellerSignup = async (data)=>{
         
     }
     catch(error){
-        console.log('Error while calling signup api',error);
+        console.log('Error while calling signup api',error); 
     }
 }
 

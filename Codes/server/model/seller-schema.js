@@ -8,6 +8,14 @@ const sellerSchema = new mongoose.Schema({
         min:5,
         max:20
     },
+    lastname:{
+        type: String,
+        required: true,
+        trim:true,
+        unique:true,
+        index:true,
+        lowercase:true
+    },
     username:{
         type: String,
         required: true,

@@ -11,6 +11,7 @@ import logo from '../home/header/logo.png'
 import { authenticateSignup, authenticateLogin } from "../../service/api";
 
 import { DataContext } from "../../context/DataProvider";
+import Cookies from 'js-cookie';
 
 const Component = styled(Box)`
   height: 90vh;
@@ -168,9 +169,18 @@ const LoginDialog = ({ open, setOpen }) => {
 
     const loginUser = async () => {
         let response = await authenticateLogin(login);
+        const token =response.data.token;
+        console.log(token);
         if (response.status === 200) {
+            // Cookies.set('token', response.data.token, {expires: 7});
+            // if(token){
+            //     localStorage.setItem('token', token);
+            //     localStorage.setItem('islogedin', true);
+            // }
             handleClose();
-            setAccount(response.data.data.firstname);
+            // console.log(response);
+            // console.log(response.data.user);
+            setAccount(response.data.user.firstname);
         }
         else {
             setError(true);
@@ -179,8 +189,10 @@ const LoginDialog = ({ open, setOpen }) => {
 
     const signupUser = async () => {
         let response = await authenticateSignup(signup);
+        // Cookies.set('token', response.data.token, {expires: 7});
         if (!response) return;
         handleClose();
+        console.log(response);
         setAccount(signup.firstname);
     };
 
@@ -226,7 +238,7 @@ const LoginDialog = ({ open, setOpen }) => {
                             <Text>By continuing, you agree to DealsDone's Terms of Use and Privacy Policy.</Text>
                             <LoginButton onClick={() => loginUser()}>Login</LoginButton>
                             <Typography style={{ textAlign: "center" }}>OR</Typography>
-                            <RequestOTP>Request OTP</RequestOTP>
+                            <RequestOTP>Forgot Password</RequestOTP>
                             <CreateAccount onClick={toggleSignup} style={{marginTop: 'auto'}}>New to DealsDone? Let's create an account</CreateAccount>
                         </Wrapper>
                     ) : (

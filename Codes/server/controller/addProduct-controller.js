@@ -7,9 +7,9 @@ export const addProduct = async(request,response) =>{
         const newProduct = new Product(product);
         await newProduct.save();
 
-        response.status(200).json({message: product });
+        return response.status(200).json({message: product });
     }
     catch(error){
-        response.status(500).json({message:error.message});
+        return response.status(500).json({message:error.message});
     }
 }

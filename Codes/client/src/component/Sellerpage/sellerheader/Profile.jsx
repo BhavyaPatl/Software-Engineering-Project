@@ -3,6 +3,7 @@ import {Box,Typography,Menu,MenuItem,styled} from '@mui/material'
 
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Component = styled(Menu)`
     margin-top:5px;
@@ -34,6 +35,7 @@ const Profile = ({account,setAccount})=>{
     }
 
     const logoutUser =()=>{
+        Cookies.remove('token');
         setAccount('');
         navigate('/')
     }

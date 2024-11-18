@@ -9,13 +9,18 @@ import {Box} from '@mui/material';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
+
+  const token = localStorage.getItem('token');
+  const islogedin = localStorage.getItem('islogedin');
+  
+
   return (
     <DataProvider>
       <BrowserRouter>
       
       <Box style={{marginTop:54}}>
         <Routes>
-          <Route path='/' element={ <Home /> }/>
+          <Route path='/' element={  <Home /> }/>
           <Route path='/product/:id' element={<DetailView />} />
           <Route path='/add-product' element={<AddProduct />} /> {/* This route should load AddProduct */}
           <Route path='/sellerpage' element={<SellerPage />} />
