@@ -1,25 +1,31 @@
-import React from 'react';
-import { AppBar, Toolbar, Button, Typography, Box, Card, CardContent, Grid } from '@mui/material';
+import React, { useContext, useState } from 'react';
+import {Button, Typography, Box, Card, CardContent, Grid } from '@mui/material';
 import Header from './sellerheader/sellerheader';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './SellerPage.css';
 import { useNavigate } from 'react-router-dom';
-
+import { DataContext } from '../../context/DataProvider';
+import LoginDialog from '../login/LoginDialog';
 
 function SellerPage() {
-
   const navigate = useNavigate();
+  const { account } = useContext(DataContext); // Access the account context
+  const [open, setOpen] = useState(false); // Manage login dialog state
 
   const handleAddProduct = () => {
-    
-    navigate('/add-product');
+    if (account) {
+      // Navigate to the Add Product page if the seller is logged in
+      navigate('/add-product');
+    } else {
+      // Open the login dialog if the seller is not logged in
+      setOpen(true);
+    }
   };
 
   return (
     <div>
-        <Header />
-      
+      <Header />
       {/* Hero Section */}
       <Box className="hero-section" sx={{ textAlign: 'center', padding: 5, backgroundColor: '#f5f5f5' }}>
         <Typography variant="h3" gutterBottom>
@@ -91,6 +97,9 @@ function SellerPage() {
       <Box style={{ backgroundColor: '#051922', padding: 20, textAlign: 'center', color: 'white', marginTop: 95 }}>
         <Typography variant="body1">© 2024 DealsDone | All rights reserved.</Typography>
       </Box>
+
+      {/* Login Dialog */}
+      <LoginDialog open={open} setOpen={setOpen} />
     </div>
   );
 }
