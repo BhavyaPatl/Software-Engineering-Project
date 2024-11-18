@@ -56,7 +56,7 @@ const ActionItem =({product}) =>{
                 <Image src={product.detailUrl}/>
             </Box>
             <StyledButton variant="contained" onClick={()=>addItemToCart()} style={{marginRight:10, background:'#ff9f00'}}>Add to Cart</StyledButton>
-            <StyledButton variant="contained" style={{ background:'#fb541b'}} >BUY NOW</StyledButton>
+            <StyledButton variant="contained" onClick={() => navigate('/payment')} style={{ background:'#fb541b'}} >BUY NOW</StyledButton>
         </LeftContainer>
     )
 }

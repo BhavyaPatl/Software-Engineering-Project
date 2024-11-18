@@ -6,6 +6,10 @@ import Cart from './component/cart/Cart';
 import SellerPage from './component/Sellerpage/Sellerpage'
 import ProfilePage from './component/ProfilePage/ProfilePage'
 import {Box} from '@mui/material';
+import Payment from './component/payment/payment';
+import PaymentDecision from './component/payment/paymentdecision';
+import PaymentConfirmation from './component/payment/paymentConfirmation';
+import PaymentFail from './component/payment/paymentFailure';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -27,6 +31,10 @@ function App() {
           <Route path='/sellerpage' element={<SellerPage />} />
           <Route path='/profilepage' element={<ProfilePage />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/paymentdecision" element={<PaymentDecision />} />
+          <Route path="/payment-success" element={<PaymentConfirmation />} />
+          <Route path="/payment-fail" element={<PaymentFail />} />
         </Routes>
       </Box>
       </BrowserRouter>
