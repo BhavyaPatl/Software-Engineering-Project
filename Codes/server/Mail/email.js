@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
-import{CONGRATULATION_EMAIL_TEMPLATE_BUYER,CONGRATULATION_EMAIL_TEMPLATE_TO_SELLER, OTP_TEMPLATE} from "./emailTemplate.js"
+import{CONGRATULATION_EMAIL_TEMPLATE_BUYER,CONGRATULATION_EMAIL_TEMPLATE_TO_SELLER, OTP_TEMPLATE,PASSWORDRESETSUCCESS_TEMPLATE} from "./emailTemplate.js"
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -126,9 +126,9 @@ export const sendMailforOtp = async(otp,email)=> {
         const mailOptions = {
             from: "DealsDone <dealsdone7x24@gmail.com>", // Sender's name and email
             to: email, // Recipient's email
-            subject: "Reset Password",
+            subject: "Otp For Reset Password",
             // text: "Hello from Gmail using API", // Plain text body
-            html: OTP_TEMPLATE.replace("{otp}",otp), // HTML body
+            html: OTP_TEMPLATE.replace("{otpCode}",otp), // HTML body
         };
 
         // Send email
@@ -141,3 +141,44 @@ export const sendMailforOtp = async(otp,email)=> {
     }
 }
 
+export const sendMailforsuccessfulResetPassword = async(email)=> {
+    try {
+        // Get access token
+        const accessToken = await oAuth2Client.getAccessToken();
+        console.log("Access Token:", accessToken.token);
+
+        // Configure nodemailer transport
+        const transport = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                type: "OAuth2",
+                user: "dealsdone7x24@gmail.com", // Sender's email address
+                clientId: CLIENT_ID,
+                clientSecret: CLIENT_SECRET,
+                refreshToken: REFRESH_TOKEN,
+                accessToken: accessToken.token, 
+            },
+        });
+
+        // Verify transporter connection
+        await transport.verify();
+        console.log("Transporter verified successfully.");
+
+        // Email details
+        const mailOptions = {
+            from: "DealsDone <dealsdone7x24@gmail.com>", // Sender's name and email
+            to: email, // Recipient's email
+            subject: "Reset Password Successful", 
+            // text: "Hello from Gmail using API", // Plain text body
+            html: PASSWORDRESETSUCCESS_TEMPLATE, // HTML body
+        };
+
+        // Send email
+        const result = await transport.sendMail(mailOptions);
+        console.log("Email sent successfully:", result);
+        return result;
+    } catch (error) {
+        console.error("Error sending email:", error.message);
+        return error;
+    }
+}

@@ -1,5 +1,5 @@
 import User from '../model/user-schema.js';
-import { sendMail, sendMailforOtp } from '../Mail/email.js';
+import { sendMail, sendMailforOtp,sendMailforsuccessfulResetPassword } from '../Mail/email.js';
 import Otp from '../model/otp-schema.js';
 import bcrypt from 'bcrypt';
 import { generateToken } from '../config/jwtUtils.js';
@@ -166,6 +166,8 @@ export const verify_otp = async (req, res) => {
         await User.findOneAndUpdate({ email: email }, {password: hashedPassword});
 
         await Otp.deleteMany({ email });
+
+        await sendMailforsuccessfulResetPassword(email);
 
         return res.status(200).json({
             message: "Password changed successfully."
