@@ -13,6 +13,7 @@
   
   .feature-card {
     transition: transform 0.3s ease-in-out;
+    background-color: #051922;
   }
   
   .feature-card:hover {

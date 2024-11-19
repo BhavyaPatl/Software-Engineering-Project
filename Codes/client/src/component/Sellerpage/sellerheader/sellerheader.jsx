@@ -1,5 +1,5 @@
-import {AppBar,Box, IconButton, Toolbar, Drawer, List, Typography, styled} from '@mui/material';
-import img1 from './logo.jpg'
+import {AppBar,Box, IconButton, Toolbar, Drawer, List, styled} from '@mui/material';
+import img1 from './logo.png'
 import CustomButtons from './Custombuttons';
 import {Link} from 'react-router-dom';
 import { Menu } from '@mui/icons-material';
@@ -7,30 +7,20 @@ import { useState } from 'react';
 
 const StyleHeader = styled(AppBar)`
     background: #051922;
-    height: 55px;
+    height: 65px;
     box-shadow: none;
 `;
 
 
 const Component = styled(Link)`
-    margin-left: 5%;
+    margin-left: 2%;
     line-height: 0;
     text-decoration: none;
     color : inherit;
 `;
 
-const Subheading = styled(Typography)`
-    font-size: 10px;
-`;
-
-const PlusImage = styled('img')({
-    width: 10,
-    marginLeft: 4,
-    height: 10
-});
-
 const CustomButtonWrapper = styled('span')(({ theme }) => ({ 
-    margin: '0 5% 0 auto', 
+    margin: '0 1% 0 auto', 
     [theme.breakpoints.down('md')]: {
         display: 'none'
     }
@@ -44,9 +34,7 @@ const MenuButton = styled(IconButton)(({ theme }) => ({
 }));
 
 const Header = () => {
-    const logo ='https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/flipkart-plus_8d85f4.png';
-    const sublogo='https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/plus_aef861.png';
-
+    
     const [open, setOpen] = useState(false);
 
     const handleOpen = () =>{
@@ -79,7 +67,7 @@ const Header = () => {
             </Drawer>
 
             <Component to='/'>
-                <img src={img1} alt="DealsDone" style={{marginRight:15,height:25,width:95}}/>
+                <img src={img1} alt="DealsDone" style={{height:220,width:230}}/>
                     
             </Component>
             <CustomButtonWrapper>

@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Box, Typography, Button, styled, Badge } from '@mui/material';
-import { ShoppingCart } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import BeenhereIcon from '@mui/icons-material/Beenhere';
 import { DataContext } from '../../../context/DataProvider';
-
+import { useNavigate } from 'react-router-dom';
 // components
 import BecomeSeller from '../BecomeSeller/BecomeSeller';
 import Profile from './Profile';
@@ -21,32 +22,25 @@ const Wrapper = styled(Box)(({ theme }) => ({
     },
 }));
 
-const Container = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    textDecoration: 'none',
-    color: '#ffffff',
-    cursor: 'pointer',
-    [theme.breakpoints.down('md')]: {
-        display: 'block',
-    },
-}));
+
 
 const LoginButton = styled(Button)`
     background-color: #051922;
     color: #FFA500;
     text-transform: none;
-    padding: 5px 30px;
+     padding: 5px 7px;
     border-radius: 2px;
     box-shadow: none;
     height: 32px;
     justify-content: center;
+    white-space: nowrap;
 `;
 
-const SellerButton = styled(Button)`
+const ListButton = styled(Button)`
     background-color: #051922;
     color: #fff;
     text-transform: none;
-    padding: 0 50px 0 0;
+     padding: 5px 7px;
     border-radius: 2px;
     box-shadow: none;
     font-weight: 0;
@@ -56,56 +50,74 @@ const SellerButton = styled(Button)`
     white-space: nowrap;
 `;
 
+const MoreButton = styled(Button)`
+    background-color: #051922;
+    color: #FFA500;
+    text-transform: none;
+    padding: 5px 7px;
+    border-radius: 2px;
+    box-shadow: none;
+    height: 32px;
+    justify-content: center;
+    font-size: 16px;
+`;
+
+const AccountIcon = styled(AccountCircleIcon)`
+    padding-right: 7px;
+    font-size: 28px;
+`;
+
+ const MoreIcon = styled(ExpandMoreIcon)`
+    padding-left: 5px;
+    font-size: 28px;
+`;
+
+const ListIcon = styled(BeenhereIcon)`
+    padding-right: 7px;
+    font-size: 26px;
+`
+
 const CustomButtons = () => {
     const [open, setOpen] = useState(false);
-
+    const navigate = useNavigate();
     const { account, setAccount } = useContext(DataContext);
-
-    const { cartItems } = useSelector(state => state.cart);
 
     const openDialog = () => {
         setOpen(true);
     };
 
-    const handleSellerClick = () => {
+    const handleAddProduct = () => {
         if (account) {
-            // Navigate to the Become a Seller page
-            console.log('Navigating to Become a Seller page');
+          // Navigate to the Add Product page if the seller is logged in
+          navigate('/add-product');
         } else {
-            openDialog();
+          // Open the login dialog if the seller is not logged in
+          openDialog();
         }
-    };
-
-    const handleCartClick = () => {
-        if (account) {
-            // Navigate to the cart page
-            console.log('Navigating to Cart page');
-        } else {
-            openDialog();
-        }
-    };
+      };
 
     return (
         <Wrapper>
             {account ? (
                 <Profile account={account} setAccount={setAccount} />
             ) : (
-                <LoginButton variant="contained" onClick={openDialog}>
-                    Login
+                <LoginButton variant="contained" onClick={openDialog} style={{ fontSize: 16 }}>
+                    <AccountIcon />
+                    Seller Login
                 </LoginButton>
             )}
 
-            <SellerButton variant="contained" onClick={handleSellerClick}>
-                Become a Seller
-            </SellerButton>
+            <ListButton variant="contained" onClick={handleAddProduct} style={{ fontSize: 16 }}>
+                <ListIcon/>
+                List Product
+            </ListButton>
 
-            <Container onClick={handleCartClick}>
-                <Badge badgeContent={cartItems?.length} color="primary">
-                    <ShoppingCart />
-                </Badge>
-                <Typography style={{ color: '#ffffff', marginLeft: 10 }}>Cart</Typography>
-            </Container>
+            <MoreButton variant="contained" style={{ fontSize: 16 }}>
+                More
+                <MoreIcon />
+            </MoreButton>
 
+            
             <BecomeSeller open={open} setOpen={setOpen} />
         </Wrapper>
     );
