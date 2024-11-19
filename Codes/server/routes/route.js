@@ -5,6 +5,7 @@ import { getProducts, getProductById } from '../controller/product-controller.js
 import { sellerSignup, sellerLogin,forgot_password_seller,verify_otp_seller} from '../controller/seller-controller.js'
 import { addProduct } from '../controller/addProduct-controller.js';
 import { authenticateTokenSeller } from '../middleware/authentication.js';
+import { addToCart, getCart , updateCartItem, removeFromCart, clearCart} from '../controller/cart-controller.js';
 
 
 const router = express.Router();
@@ -24,6 +25,12 @@ router.get('/products',getProducts);
 router.get('/product/:id', getProductById);
 
 router.post('/addproduct', authenticateTokenSeller, addProduct);
+
+router.post('/cart/add', addToCart); 
+router.get('/cart/:userId', getCart); 
+router.put('/cart/update', updateCartItem);
+router.delete('/cart/remove', removeFromCart); 
+router.delete('/cart/clear', clearCart); 
 
 export default router;
  
