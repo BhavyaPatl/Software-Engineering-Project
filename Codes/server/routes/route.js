@@ -7,6 +7,7 @@ import { addProduct } from '../controller/addProduct-controller.js';
 import { authenticateTokenSeller } from '../middleware/authentication.js';
 import { submitReview } from '../controller/submitReview-controller.js'
 import { getreviews } from '../controller/getreviews-controller.js'
+import { addToCart, getCart , updateCartItem, removeFromCart, clearCart} from '../controller/cart-controller.js';
 
 
 const router = express.Router();
@@ -30,6 +31,11 @@ router.post('/addproduct', authenticateTokenSeller, addProduct);
 router.post('/submitreview', submitReview);
 router.get('/reviews/:productId', getreviews);
 
+router.post('/cart/add', addToCart); 
+router.get('/cart/:userId', getCart); 
+router.put('/cart/update', updateCartItem);
+router.delete('/cart/remove', removeFromCart); 
+router.delete('/cart/clear', clearCart); 
 
 export default router;
  

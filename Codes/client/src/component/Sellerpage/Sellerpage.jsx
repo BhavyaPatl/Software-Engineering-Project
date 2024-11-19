@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
-import {Button, Typography, Box, Card, CardContent, Grid } from '@mui/material';
+import {Button, Typography, Box, Card, CardContent, Grid, styled } from '@mui/material';
 import Header from './sellerheader/sellerheader';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import './SellerPage.css';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../context/DataProvider';
@@ -23,14 +25,27 @@ function SellerPage() {
     }
   };
 
+  const DealText = styled(Typography)`
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 32px;
+    margin-right: auto ;
+    margin-left: auto ;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    color: orange;
+    text-align: center;
+`
+
   return (
     <div>
       <Header />
       {/* Hero Section */}
       <Box className="hero-section" sx={{ textAlign: 'center', padding: 5, backgroundColor: '#f5f5f5' }}>
-        <Typography variant="h3" gutterBottom>
-          Start Selling Online with Ease
-        </Typography>
+      <DealText>
+                    <span style={{ color: '#FFA500' }}>Start</span>{' '}
+                    <span style={{ color: '#051922' }}>Selling Online with Ease</span>
+            </DealText>
         <Typography variant="h6" color="text.secondary" paragraph>
           Reach millions of customers and grow your business with our platform.
         </Typography>
@@ -40,6 +55,7 @@ function SellerPage() {
           size="large"
           startIcon={<AddCircleIcon />}
           onClick={handleAddProduct}
+          style={{ backgroundColor: '#FFA500', color: 'white' }}
         >
           Add Product
         </Button>
@@ -47,18 +63,18 @@ function SellerPage() {
 
       {/* Features Section */}
       <Box sx={{ padding: 5 }}>
-        <Typography variant="h4" textAlign="center" gutterBottom>
+        <Typography variant="h4" textAlign="center" gutterBottom style={{ color: '#051922' }}>
           Why Sell with Us?
         </Typography>
         <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} sm={6} md={4}>
-            <Card className="feature-card">
+            <Card className="feature-card" >
               <CardContent>
-                <ShoppingCartIcon color="primary" sx={{ fontSize: 50 }} />
-                <Typography variant="h6" gutterBottom>
+                <ShoppingCartIcon style={{ color: '#FFA500' }} sx={{ fontSize: 50 }} />
+                <Typography variant="h6" gutterBottom style={{ color: '#051922' }}>
                   45 Crore+ Customers
                 </Typography>
-                <Typography color="text.secondary">
+                <Typography color="text.secondary" >
                   Connect with millions of customers nationwide to boost your sales.
                 </Typography>
               </CardContent>
@@ -67,8 +83,8 @@ function SellerPage() {
           <Grid item xs={12} sm={6} md={4}>
             <Card className="feature-card">
               <CardContent>
-                <AddCircleIcon color="primary" sx={{ fontSize: 50 }} />
-                <Typography variant="h6" gutterBottom>
+                <EnhancedEncryptionIcon style={{ color: '#FFA500' }} sx={{ fontSize: 50 }} />
+                <Typography variant="h6" gutterBottom style={{ color: '#051922' }}>
                   Secure Payments
                 </Typography>
                 <Typography color="text.secondary">
@@ -80,11 +96,11 @@ function SellerPage() {
           <Grid item xs={12} sm={6} md={4}>
             <Card className="feature-card">
               <CardContent>
-                <ShoppingCartIcon color="primary" sx={{ fontSize: 50 }} />
-                <Typography variant="h6" gutterBottom>
+                <SupportAgentIcon style={{ color: '#FFA500' }} sx={{ fontSize: 50 }} />
+                <Typography variant="h6" gutterBottom style={{ color: '#051922' }}>
                   Seller Support
                 </Typography>
-                <Typography color="text.secondary">
+                <Typography color="text.secondary" >
                   Access 24/7 seller support to help you through any challenges.
                 </Typography>
               </CardContent>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Typography, Menu, MenuItem, styled } from '@mui/material';
+import { Box, Typography, Menu, MenuItem, styled, Button } from '@mui/material';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,17 @@ const B = styled(Box)`
 const Logout = styled(Typography)`
     font-size: 14px;
     margin-left: 20px;
+`;
+
+const Name = styled(Button)`
+    background-color: #051922;
+    color: #FFA500;
+    text-transform: none;
+    padding: 5px 7px;
+    border-radius: 2px;
+    box-shadow: none;
+    height: 32px;
+    justify-content: center;
 `;
 
 const Profile = ({ account, setAccount }) => {
@@ -36,14 +47,14 @@ const Profile = ({ account, setAccount }) => {
     };
 
     const goToProfile = () => {
-        navigate('/profilepage');  // You can change this to your profile page route
+        navigate('/profilepage');  
         handleClose();
     };
 
     return (
         <B>
             <Box onClick={handleClick}>
-                <Typography>{account}</Typography>
+                <Name  style={{ fontSize: 16 }}>{account}</Name>
             </Box>
             <Component
                 anchorEl={open}

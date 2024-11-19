@@ -4,6 +4,9 @@ import { ShoppingCart } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
 import { DataContext } from '../../../context/DataProvider';
 import { useNavigate } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 
 // components 
 import LoginDialog from '../../login/LoginDialog';
@@ -57,6 +60,20 @@ const SellerButton = styled(Button)`
     white-space: nowrap;
 `;
 
+ const AccountIcon = styled(AccountCircleIcon)`
+    padding-right: 7px;
+    font-size: 28px;
+ `;
+
+ const MoreIcon = styled(ExpandMoreIcon)`
+    padding-left: 5px;
+    font-size: 28px;
+ `;
+
+const SellerIcon = styled(BusinessCenterIcon)`
+    padding-right: 7px;
+    font-size: 28px;
+`
 const MoreButton = styled(Button)`
     background-color: #051922;
     color: #FFA500;
@@ -101,15 +118,15 @@ const CustomButtons = () => {
                 <Profile account={account} setAccount={setAccount} />
             ) : (
                 <LoginButton variant="contained" onClick={openDialog} style={{ fontSize: 16 }}>
+                    <AccountIcon />
                     Login
                 </LoginButton>
             )}
             <SellerButton variant="contained" onClick={sellerpage} style={{ fontSize: 16 }}>
+                <SellerIcon/>
                 Become a Seller
             </SellerButton>
-            <MoreButton variant="contained" onClick={aboutus} style={{ fontSize: 16 }}>
-                More
-            </MoreButton>
+            
             <Container onClick={handleCartClick}>
                 <Badge badgeContent={cartItems?.length} color="primary">
                     <ShoppingCart />
@@ -118,6 +135,12 @@ const CustomButtons = () => {
                     Cart
                 </Typography>
             </Container>
+
+            <MoreButton variant="contained" onClick={aboutus} style={{ fontSize: 16 }}>
+                
+                More
+                <MoreIcon />
+            </MoreButton>
             <LoginDialog open={open} setOpen={setOpen} />
         </Wrapper>
     );

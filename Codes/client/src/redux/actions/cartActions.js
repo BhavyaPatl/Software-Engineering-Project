@@ -21,3 +21,4 @@ export const removeFromCart = (id)=> (dispatch) => {
     dispatch({type: actionType.REMOVE_FROM_CART, payload: id}); 
 
 }
+

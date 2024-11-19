@@ -1,4 +1,4 @@
-import {AppBar,Box, IconButton, Toolbar, Drawer, List, ListItem, Typography, styled} from '@mui/material';
+import {AppBar,Box, IconButton, Toolbar, Drawer, List, ListItem, styled} from '@mui/material';
 import Search from './Search';
 import img1 from './logo.png'
 import CustomButton from './CustomButtons';
