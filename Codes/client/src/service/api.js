@@ -101,3 +101,24 @@ export const authenticateVerifyOtpforSeller = async (data)=>{
     }
 }
 
+export const submitReview = async (data) => {
+    try {
+        console.log("success");
+        console.log("data is", data);
+        return await axios.post(`${URL}/submitreview`,data)
+    } 
+    catch (error) {
+        console.log('Error submitting review:', error);
+    }
+};
+
+export const getReviewsByProductId = async (productId) => {
+    try {
+        const response = await axios.get(`${URL}/reviews/${productId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching reviews:', error);
+        throw error;
+    }
+};
+

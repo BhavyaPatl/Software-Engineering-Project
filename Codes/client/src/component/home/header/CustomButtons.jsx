@@ -91,6 +91,10 @@ const CustomButtons = () => {
         }
     };
 
+    const aboutus = () => {
+        navigate('./aboutus');
+    }
+
     return (
         <Wrapper>
             {account ? (
@@ -103,7 +107,7 @@ const CustomButtons = () => {
             <SellerButton variant="contained" onClick={sellerpage} style={{ fontSize: 16 }}>
                 Become a Seller
             </SellerButton>
-            <MoreButton variant="contained" style={{ fontSize: 16 }}>
+            <MoreButton variant="contained" onClick={aboutus} style={{ fontSize: 16 }}>
                 More
             </MoreButton>
             <Container onClick={handleCartClick}>

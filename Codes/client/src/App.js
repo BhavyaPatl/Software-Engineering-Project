@@ -5,6 +5,7 @@ import DataProvider from './context/DataProvider';
 import Cart from './component/cart/Cart';
 import SellerPage from './component/Sellerpage/Sellerpage'
 import ProfilePage from './component/ProfilePage/ProfilePage'
+import AboutUsPage from './component/AboutusPage/AboutusPage'
 import {Box} from '@mui/material';
 import Payment from './component/payment/payment';
 import PaymentDecision from './component/payment/paymentdecision';
@@ -31,6 +32,7 @@ function App() {
           <Route path='/sellerpage' element={<SellerPage />} />
           <Route path='/profilepage' element={<ProfilePage />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path="/aboutus" element={<AboutUsPage />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/paymentdecision" element={<PaymentDecision />} />
           <Route path="/payment-success" element={<PaymentConfirmation />} />
