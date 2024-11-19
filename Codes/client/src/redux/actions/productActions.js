@@ -3,15 +3,17 @@ import * as actionTypes from '../constants/productConstant'
 
 const URL = 'http://localhost:8000';
 
-export const getProducts = () => async(dispatch) => {
-    try{
-        const { data }=await axios.get(`${URL}/products`);
-        dispatch({ type: actionTypes.GET_PRODUCTS_SUCCESS,payload:data})
+export const getProducts = (category) => async (dispatch) => {
+    try {
+        const query = category ? `?category=${category}` : ''; // Add category filter to URL
+        const { data } = await axios.get(`${URL}/products${query}`);
+        dispatch({ type: actionTypes.GET_PRODUCTS_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({ type: actionTypes.GET_PRODUCTS_FAIL, payload: error.message });
     }
-    catch(error){
-        dispatch({ type: actionTypes.GET_PRODUCTS_FAIL,payload:error.message})
-    }
-}
+};
+
+
 
 export const getProductDetails = (id) => async (dispatch) => {
     try {
