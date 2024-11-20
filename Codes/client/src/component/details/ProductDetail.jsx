@@ -173,26 +173,34 @@ const ProductDetail = ({ product }) => {
                 Submit Review
             </Button>
 
-            <Typography variant="h6" style={{ marginTop: 30 }}>Previous Reviews</Typography>
-            {reviews.length > 0 ? (
-                reviews.map((reviewItem, index) => (
-                    <Paper key={index} style={{ padding: 15, marginBottom: 20 }}>
-                        <Box display="flex" alignItems="center">
-                            <Rating name="read-only" value={reviewItem.rating} readOnly />
-                            <Typography variant="body2" style={{ marginLeft: 10, color: '#878787' }}>
-                                {new Date(reviewItem.updatedAt).toLocaleDateString()}
+            <Typography variant="h6" style={{ marginTop: 30 }}>
+                Previous Reviews
+                </Typography>
+                {reviews.length > 0 ? (
+                    reviews
+                    .slice() // Create a copy to avoid mutating the original array
+                    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)) // Sort by date descending
+                    .map((reviewItem, index) => (
+                        <Paper key={index} style={{ padding: 15, marginBottom: 20 }}>
+                            <Box display="flex" alignItems="center">
+                                <Rating name="read-only" value={reviewItem.rating} readOnly />
+                                <Typography
+                                    variant="body2"
+                                    style={{ marginLeft: 10, color: '#878787' }}
+                                >
+                                    {new Date(reviewItem.updatedAt).toLocaleDateString()}
+                                </Typography>
+                            </Box>
+                            <Typography variant="body1" style={{ marginTop: 10 }}>
+                                {reviewItem.reviewText}
                             </Typography>
-                        </Box>
-                        <Typography variant="body1" style={{ marginTop: 10 }}>
-                            {reviewItem.reviewText}
-                        </Typography>
-                    </Paper>
-                ))
-            ) : (
-                <Typography>No reviews yet.</Typography>
+                        </Paper>
+                    ))
+                ) : (
+                    <Typography>No reviews yet.</Typography>
             )}
-        </>
-    );
+            </>
+        );
 };
 
 export default ProductDetail;
