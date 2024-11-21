@@ -112,7 +112,7 @@ const signupInitialValues = {
 };
 
 const loginInitialValues = {
-    username: '',
+    username: localStorage.getItem('username') || '',
     password: ''   
 };
 const emailInitialValue = {
@@ -193,14 +193,33 @@ const LoginDialog = ({ open, setOpen }) => {
     };
 
 
-    const onValueChange = (e)=>{
-        setLogin({...login,[e.target.name]: e.target.value});
-        console.log(signup);
+    // const onValueChange = (e)=>{
+    //     setLogin({...login,[e.target.name]: e.target.value});
+    
+    //     const name = e.target.value;
+    //     console.log(name);
+        
+    //         localStorage.setItem('username', name); // Save username to localStorage
+        
+    // };
+    const onValueChange = (e) => {
+        const { name, value } = e.target;
+        
+        
+        setLogin({ ...login, [name]: value });
+    
+       
+        if (name === 'username') {
+            localStorage.setItem('username', value); // Save username to localStorage
+        }
+        console.log("Updated login data:", login);
     };
+    
 
     const loginUser = async () => {
         let response = await authenticateLogin(login);
         const token =response.data.token;
+        const username = token.username;
         console.log(token);
         if (response.status === 200) {
             handleClose();

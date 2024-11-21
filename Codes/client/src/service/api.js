@@ -122,3 +122,17 @@ export const getReviewsByProductId = async (productId) => {
     }
 };
 
+export const fetchUserProfile = async () => {
+    try {
+        const username = localStorage.getItem('username');  
+        const response = await axios.get(`${URL}/profilepage`, {
+            params: {
+                username: username,  
+            },
+        });
+        return response.data;  
+    } catch (error) {
+        console.error('Error while fetching user profile:', error);
+        throw error;
+    }
+};

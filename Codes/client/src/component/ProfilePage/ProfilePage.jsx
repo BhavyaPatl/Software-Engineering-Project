@@ -1,22 +1,8 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { styled, Container, Grid, Card, Typography, Button, Divider } from '@mui/material';
+import { fetchUserProfile } from '../../service/api';
 
-// Sample data for the profile and orders
-const userProfile = {
-  name: "Jane Smith",
-  email: "jane.smith@example.com",
-  phone: "(987) 654-3210",
-  address: "456 Market Ave, City, Country",
-  avatar: "https://www.w3schools.com/w3images/avatar2.png",
-};
-
-const orderHistory = [
-  { id: 1, product: "Wireless Headphones", date: "2024-10-01", status: "Delivered", price: "$120.00" },
-  { id: 2, product: "Smartwatch", date: "2024-09-15", status: "Shipped", price: "$200.00" },
-  { id: 3, product: "Laptop Sleeve", date: "2024-08-30", status: "Pending", price: "$25.00" },
-];
-
-// Styled components using Material-UI's `styled` API
 const ProfileContainer = styled(Container)(({ theme }) => ({
   backgroundColor: '#f7f7f7',
   borderRadius: '12px',
@@ -50,11 +36,6 @@ const AvatarImage = styled('img')({
   border: '3px solid #3f51b5',
 });
 
-const InfoText = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(1),
-  color: theme.palette.text.secondary,
-}));
-
 const OrderCard = styled(Card)(({ theme }) => ({
   marginBottom: theme.spacing(3),
   padding: theme.spacing(3),
@@ -71,43 +52,72 @@ const OrderCard = styled(Card)(({ theme }) => ({
 }));
 
 const ProfilePage = () => {
-  const [user] = useState(userProfile);
-  const [orders] = useState(orderHistory);
+  const [user, setUser] = useState(null);
+  const [orders, setOrders] = useState([]); // Initialize as empty array
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const loadUserProfile = async () => {
+      try {
+        const data = await fetchUserProfile(); 
+        setUser(data);
+        setOrders(data.orders || []);  // Ensure orders is always an array
+      } catch (error) {
+        setError('Failed to load user data.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUserProfile();
+  }, []);
+
+  if (loading) return <Typography>Loading...</Typography>;
+  if (error) return <Typography color="error">{error}</Typography>;
 
   return (
     <ProfileContainer maxWidth="sm">
       <Grid container justifyContent="center">
         {/* Profile Section */}
-        <Grid item xs={12} sm={10} md={8}>
-          <ProfileCard>
-            <AvatarImage src={user.avatar} alt="User Avatar" />
-            <Typography variant="h5" component="h2">{user.name}</Typography>
-            <InfoText variant="body2">{user.email}</InfoText>
-            <InfoText variant="body2">{user.phone}</InfoText>
-            <InfoText variant="body2">{user.address}</InfoText>
-            <Button variant="contained" color="primary" sx={{ marginTop: 2, borderRadius: '20px' }}>
-              Edit Profile
-            </Button>
-          </ProfileCard>
-        </Grid>
+        {user && (
+          <Grid item xs={12} sm={10} md={8}>
+            <ProfileCard>
+              <AvatarImage src={user.avatar || 'https://via.placeholder.com/100'} alt="User Avatar" />
+              <Typography variant="h5" component="h2">{`${user.firstname} ${user.lastname}`}</Typography>
+              <Typography variant="body2" color="textSecondary">{user.email}</Typography>
+              <Typography variant="body2" color="textSecondary">{user.phone}</Typography>
+              <Typography variant="body2" color="textSecondary">{user.address}</Typography>
+              <Button variant="contained" color="primary" sx={{ marginTop: 2, borderRadius: '20px' }}>
+                Edit Profile
+              </Button>
+            </ProfileCard>
+          </Grid>
+        )}
 
         {/* Order History Section */}
         <Grid item xs={12} sm={10} md={8}>
           <Typography variant="h6" component="h3" sx={{ marginBottom: 2, fontWeight: 600 }}>Order History</Typography>
-          {orders.map((order) => (
-            <OrderCard key={order.id}>
-              <Grid container spacing={2}>
-                <Grid item xs={8}>
-                  <Typography variant="body1" fontWeight="bold">{order.product}</Typography>
-                  <Typography variant="body2" color="textSecondary">Date: {order.date}</Typography>
+          {orders.length > 0 ? (
+            orders.map((order) => (
+              <OrderCard key={order.id}>
+                <Grid container spacing={2}>
+                  <Grid item xs={8}>
+                    <Typography variant="body1" fontWeight="bold">{order.product}</Typography>
+                    <Typography variant="body2" color="textSecondary">Date: {order.date}</Typography>
+                  </Grid>
+                  <Grid item xs={4} container justifyContent="flex-end" direction="column" alignItems="flex-end">
+                    <Typography variant="body1" color="textSecondary">{order.price}</Typography>
+                    <Typography variant="body2" color={order.status === 'Delivered' ? 'green' : 'orange'}>
+                      {order.status}
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={4} container justifyContent="flex-end" direction="column" alignItems="flex-end">
-                  <Typography variant="body1" color="textSecondary">{order.price}</Typography>
-                  <Typography variant="body2" color={order.status === 'Delivered' ? 'green' : 'orange'}>{order.status}</Typography>
-                </Grid>
-              </Grid>
-            </OrderCard>
-          ))}
+              </OrderCard>
+            ))
+          ) : (
+            <Typography>No orders found.</Typography>
+          )}
         </Grid>
       </Grid>
     </ProfileContainer>
