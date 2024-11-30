@@ -5,7 +5,7 @@ import TotalView, { totalPrice } from '../cart/TotalView';
 const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { cartItems = [], totalAmount = 0 } = location.state || {};
+  const { cartItems = [], totalAmount = totalPrice } = location.state || {};
   
   const [isFlipped, setIsFlipped] = useState(false);
   const [formData, setFormData] = useState({
