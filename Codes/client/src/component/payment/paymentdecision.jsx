@@ -1,100 +1,130 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Button, Card, CardContent, Typography, Box, Container, styled } from '@mui/material';
+import { CheckCircle, XCircle } from 'lucide-react';
+
+const StyledContainer = styled(Container)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '100vh',
+  background: 'linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%)',
+  padding: theme.spacing(2),
+}));
+
+const StyledCard = styled(Card)(({ theme }) => ({
+  width: '100%',
+  maxWidth: 500,
+  textAlign: 'center',
+  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+  borderRadius: theme.spacing(2),
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  borderRadius: 30,
+  padding: theme.spacing(1.5, 4),
+  fontWeight: 600,
+  textTransform: 'none',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+  transition: 'all 0.3s ease',
+  margin: theme.spacing(1),
+  '&:hover': {
+    transform: 'translateY(-2px)',
+    boxShadow: '0 6px 8px rgba(0, 0, 0, 0.15)',
+  },
+}));
 
 const PaymentDecision = () => {
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const navigate = useNavigate();
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const navigate = useNavigate();
 
-    const handleShowSuccess = () => {
-        setShowSuccessMessage(true);
-        navigate('/payment-success', { 
-            state: { 
-                transactionId: Math.random().toString(36).substr(2, 9),
-            }
-        });  // Redirect to PaymentConfirmation page
-    };
+  const handleShowSuccess = () => {
+    setShowSuccessMessage(true);
+    setTimeout(() => {
+      navigate('/payment-success', { 
+        state: { 
+          transactionId: Math.random().toString(36).substr(2, 9),
+        }
+      });
+    }, 1500);  // Delay to show success message before redirecting
+  };
 
-    const handleHideSuccess = () => {
-        setShowSuccessMessage(false);
-        navigate('/payment-fail');  // Redirect to PaymentFail page
-    };
+  const handleHideSuccess = () => {
+    setShowSuccessMessage(false);
+    navigate('/payment-fail');
+  };
 
-    return (
-        <div className="payment-decision-container">
-            <style>{`
-                .payment-decision-container {
-                    background-color: #f3f4f6;
-                    min-height: 100vh;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 2rem;
-                    font-family: 'Arial', sans-serif;
-                }
-                .header {
-                    font-size: 2rem;
-                    font-weight: bold;
-                    color: #2563eb;
-                    margin-bottom: 1.5rem;
-                }
-                .message-box {
-                    background-color: white;
-                    border-radius: 0.5rem;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                    padding: 2rem;
-                    width: 100%;
-                    max-width: 600px;
-                    text-align: center;
-                }
-                .btn {
-                    background-color: #2563eb;
-                    color: white;
-                    padding: 0.75rem 2rem;
-                    font-size: 1rem;
-                    font-weight: 600;
-                    border-radius: 0.375rem;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                    margin: 1rem;
-                }
-                .btn:hover {
-                    background-color: #1d4ed8;
-                }
-                .btn-secondary {
-                    background-color: #e5e7eb;
-                    color: #4b5563;
-                }
-                .btn-secondary:hover {
-                    background-color: #d1d5db;
-                }
-                .success-message {
-                    margin-top: 2rem;
-                    font-size: 1.25rem;
-                    color: #16a34a;
-                    font-weight: 600;
-                }
-            `}</style>
-            <h2 className="header">Would you like to confirm your payment?</h2>
+  return (
+    <StyledContainer maxWidth={false}>
+      <StyledCard>
+        <CardContent>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, color: '#2e7d32', mt: 2, mb: 4 }}>
+              Confirm Your Payment
+            </Typography>
+          </motion.div>
 
-            <div className="message-box">
-                <div>
-                    <button className="btn" onClick={handleShowSuccess}>
-                        Confirm Payment
-                    </button>
-                    <button className="btn btn-secondary" onClick={handleHideSuccess}>
-                        Cancel Payment
-                    </button>
-                </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
+            <Typography variant="body1" color="textSecondary" paragraph>
+              Would you like to proceed with the payment?
+            </Typography>
+          </motion.div>
 
-                {showSuccessMessage && (
-                    <div className="success-message">
-                        Payment Successful! Thank you for your purchase.
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+            <StyledButton 
+              variant="contained" 
+              color="primary"
+              onClick={handleShowSuccess}
+              startIcon={<CheckCircle />}
+            >
+              Confirm Payment
+            </StyledButton>
+            <StyledButton 
+              variant="outlined" 
+              color="secondary"
+              onClick={handleHideSuccess}
+              startIcon={<XCircle />}
+            >
+              Cancel Payment
+            </StyledButton>
+          </Box>
+
+          {showSuccessMessage && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Typography 
+                variant="h6" 
+                sx={{ 
+                  mt: 4, 
+                  color: '#2e7d32', 
+                  fontWeight: 600,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <CheckCircle sx={{ mr: 1 }} /> Payment Successful! Thank you for your purchase.
+              </Typography>
+            </motion.div>
+          )}
+        </CardContent>
+      </StyledCard>
+    </StyledContainer>
+  );
 };
 
 export default PaymentDecision;
+
