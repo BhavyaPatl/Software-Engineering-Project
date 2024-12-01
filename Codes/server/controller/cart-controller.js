@@ -55,6 +55,8 @@ export const getCart = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
 };
+
+
 export const updateCartItem = async (req, res) => {
     try {
         const { username, id, quantity } = req.body;
@@ -81,6 +83,8 @@ export const updateCartItem = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
 };
+
+
 export const removeFromCart = async (req, res) => {
     try {
         const { username, id } = req.body;
@@ -104,6 +108,8 @@ export const removeFromCart = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
 };
+
+
 export const clearCart = async (req, res) => {
     try {
         const { username } = req.body;
