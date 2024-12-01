@@ -27,7 +27,7 @@ router.post('/verify-otp-seller',verify_otp_seller);
 router.get('/products',getProducts);
 router.get('/product/:id', getProductById);
 
-router.post('/addproduct', authenticateTokenSeller, addProduct);
+router.post('/addproduct', addProduct);
 
 router.post('/submitreview', submitReview);
 router.get('/reviews/:productId', getreviews);

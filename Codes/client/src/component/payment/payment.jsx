@@ -178,7 +178,7 @@ const Payment = () => {
         </div>
 
         <button type="submit" className="submit-button">
-          Pay ${totalAmount}
+          Pay ₹{totalAmount}
         </button>
       </form>
     </div>
