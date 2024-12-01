@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Box, Typography, Button, styled, Badge } from '@mui/material';
+import { Box,  Button, styled, Badge } from '@mui/material';
 import { ShoppingCart } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
 import { DataContext } from '../../../context/DataProvider';
@@ -25,16 +25,6 @@ const Wrapper = styled(Box)(({ theme }) => ({
     },
 }));
 
-const Container = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    textDecoration: 'none',
-    color: '#ffffff',
-    marginRight: 0,
-    cursor: 'pointer',
-    [theme.breakpoints.down('md')]: {
-        display: 'block',
-    },
-}));
 
 const LoginButton = styled(Button)`
     background-color: #051922;
@@ -48,6 +38,19 @@ const LoginButton = styled(Button)`
 `;
 
 const SellerButton = styled(Button)`
+    background-color: #051922;
+    color: #fff;
+    text-transform: none;
+    padding: 5px 7px;
+    border-radius: 2px;
+    box-shadow: none;
+    font-weight: 0;
+    height: 32px;
+    justify-content: center;
+    white-space: nowrap;
+`;
+
+const CartButton = styled(Button)`
     background-color: #051922;
     color: #fff;
     text-transform: none;
@@ -74,6 +77,11 @@ const SellerIcon = styled(BusinessCenterIcon)`
     padding-right: 7px;
     font-size: 28px;
 `
+const CartIcon = styled(ShoppingCart)`
+    padding-right: 7px;
+    font-size: 24px;
+`
+
 const MoreButton = styled(Button)`
     background-color: #051922;
     color: #FFA500;
@@ -127,14 +135,12 @@ const CustomButtons = () => {
                 Become a Seller
             </SellerButton>
             
-            <Container onClick={handleCartClick}>
+            <CartButton onClick={handleCartClick}>
                 <Badge badgeContent={cartItems?.length} color="primary">
-                    <ShoppingCart />
+                    <CartIcon />
                 </Badge>
-                <Typography style={{ color: '#ffffff', marginLeft: 10, fontSize: 16 }}>
                     Cart
-                </Typography>
-            </Container>
+            </CartButton>
 
             <MoreButton variant="contained" onClick={aboutus} style={{ fontSize: 16 }}>
                 

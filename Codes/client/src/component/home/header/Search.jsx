@@ -65,7 +65,7 @@ const Search = () => {
             <CategoryDropdown
                 value={category}
                 onChange={handleCategoryChange}
-                displayEmpty
+                displayEmpty style={{margin: 'auto 0'}}
             >
                 <MenuItem value="">All Categories</MenuItem>
                 <MenuItem value="Phone">Phone</MenuItem>
