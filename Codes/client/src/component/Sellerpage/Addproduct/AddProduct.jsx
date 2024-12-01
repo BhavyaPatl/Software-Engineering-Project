@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { TextField, Button, Box, Typography, Paper, Grid, Card, CardContent, CardMedia, Select, MenuItem, InputLabel, FormControl, ThemeProvider, createTheme } from '@mui/material';
+import { TextField, Button, Box, Typography, Paper, Grid, Card, CardContent, CardMedia, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { addProduct } from "../../../service/api";
 import { useNavigate } from 'react-router-dom';
-import './AddProduct.css';
 
 const categories = [
   'Top Offers',
@@ -15,23 +14,6 @@ const categories = [
   'Appliances',
   'Beauty'
 ];
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#FFD700',
-    },
-    text: {
-      primary: '#FFFFFF',
-      secondary: '#E0E0E0',
-    },
-  },
-  typography: {
-    allVariants: {
-      color: '#FFFFFF',
-    },
-  },
-});
 
 const AddProduct = () => {
   const navigate = useNavigate();
@@ -84,15 +66,14 @@ const AddProduct = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-    <Box className="add-product-container gradient-background">
+    <Box className="add-product-container">
       <Typography variant="h4" align="center" gutterBottom className="page-title">
         Add a New Product
       </Typography>
 
       <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
-          <Paper elevation={4} className="form-paper glass-effect">
+          <Paper elevation={4} className="form-paper">
             <form onSubmit={handleSubmit}>
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
@@ -260,7 +241,7 @@ const AddProduct = () => {
                   color="primary"
                   size="large"
                   startIcon={<AddPhotoAlternateIcon />}
-                  className="submit-button glass-effect"
+                  className="submit-button"
                 >
                   Add Product
                 </Button>
@@ -269,7 +250,7 @@ const AddProduct = () => {
           </Paper>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Card className="product-preview glass-effect">
+          <Card className="product-preview">
             <CardMedia
               component="img"
               height="200"
@@ -305,8 +286,68 @@ const AddProduct = () => {
           </Card>
         </Grid>
       </Grid>
+      <style jsx>{`
+        .add-product-container {
+          background: linear-gradient(135deg, #000000, #FFD700);
+          min-height: 100vh;
+          padding: 2rem;
+        }
+
+        .page-title {
+          margin-bottom: 2rem;
+          color: #FFD700;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-paper {
+          padding: 2rem;
+          border-radius: 15px;
+          background: rgba(255, 255, 255, 0.1) !important;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .product-preview {
+          position: sticky;
+          top: 2rem;
+          border-radius: 15px;
+          overflow: hidden;
+          background: rgba(255, 255, 255, 0.1) !important;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .submit-button {
+          background-color: #FFD700 !important;
+          color: #000000 !important;
+          font-weight: bold !important;
+          transition: all 0.3s ease;
+        }
+
+        .submit-button:hover {
+          background-color: #FFC400 !important;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 960px) {
+          .add-product-container {
+            padding: 1rem;
+          }
+
+          .form-paper {
+            padding: 1rem;
+          }
+
+          .product-preview {
+            position: static;
+            margin-top: 2rem;
+          }
+        }
+      `}</style>
     </Box>
-    </ThemeProvider>
   );
 };
 
