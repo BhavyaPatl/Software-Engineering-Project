@@ -60,7 +60,7 @@ const RequestOTP = styled(Button)`
 
 const Text = styled(Typography)`
     font-size: 12px;
-    color: #878787;
+    color: #878785;
 `;
 
 const CreateAccount = styled(Typography)`

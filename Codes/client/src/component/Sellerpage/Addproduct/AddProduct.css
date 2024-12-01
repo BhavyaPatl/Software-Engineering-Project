@@ -1,122 +1,95 @@
-/* App.css */
-
-/* Main Container */
-.add-product-form {
-  max-width: 700px;
-  margin: 40px auto;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(145deg, #ffffff, #f9f9f9);
-  border: 1px solid #e0e0e0;
-  font-family: 'Roboto', sans-serif;
+.gradient-background {
+  background: linear-gradient(135deg, #000000, #FFD700);
+  min-height: 100vh;
+  padding: 2rem;
 }
 
-/* Page Header */
-.add-product-form h2 {
-  text-align: center;
-  font-size: 2rem;
-  color: #333333;
-  margin-bottom: 20px;
-  font-weight: 600;
-  text-transform: uppercase;
+.page-title {
+  margin-bottom: 2rem;
+  color: #FFD700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Form Layout */
-.add-product-form form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
-/* Labels */
-.add-product-form label {
-  font-weight: bold;
-  color: #555555;
-  font-size: 0.9rem;
-  margin-bottom: 5px;
+.form-paper {
+  padding: 2rem;
+  border-radius: 15px;
 }
 
-/* Inputs & Textareas */
-.add-product-form input,
-.add-product-form textarea {
-  padding: 12px;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  outline: none;
+.product-preview {
+  position: sticky;
+  top: 2rem;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.submit-button {
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+  font-weight: bold !important;
   transition: all 0.3s ease;
-  background: #ffffff;
-  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-/* Input Focus Effects */
-.add-product-form input:focus,
-.add-product-form textarea:focus {
-  border-color: #4CAF50;
-  box-shadow: 0px 0px 8px rgba(76, 175, 80, 0.3);
+.submit-button:hover {
+  background-color: #FFC400 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Buttons */
-.add-product-form button {
-  padding: 12px 20px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #ffffff;
-  background: linear-gradient(90deg, #4CAF50, #2E7D32);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
+/* Override MUI styles for better visibility */
+.MuiInputBase-root {
+  background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-.add-product-form button:hover {
-  background: linear-gradient(90deg, #2E7D32, #4CAF50);
-  box-shadow: 0px 4px 10px rgba(76, 175, 80, 0.5);
+.MuiInputLabel-root,
+.MuiInputBase-input {
+  color: #FFFFFF !important;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .add-product-form {
-    padding: 20px;
+.MuiOutlinedInput-notchedOutline {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.MuiSelect-icon {
+  color: #FFFFFF !important;
+}
+
+@media (max-width: 960px) {
+  .gradient-background {
+    padding: 1rem;
   }
 
-  .add-product-form h2 {
-    font-size: 1.5rem;
+  .form-paper {
+    padding: 1rem;
   }
 
-  .add-product-form button {
-    font-size: 1rem;
+  .product-preview {
+    position: static;
+    margin-top: 2rem;
   }
 }
 
-/* Extra Styling for Placeholder Text */
-.add-product-form input::placeholder,
-.add-product-form textarea::placeholder {
-  color: #aaa;
-  font-style: italic;
+/* Styles for dropdown menu */
+.MuiSelect-select {
+  color: #FFFFFF !important; /* Keep the selected value color white */
 }
 
-/* Custom Submit Button Animation */
-.add-product-form button:active {
-  transform: scale(0.98);
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+.MuiMenuItem-root {
+  color: #000000 !important; /* Set the text color of menu items to black */
+  background-color: #FFFFFF !important; /* Set the background of menu items to white */
 }
 
-/* General Text Styling */
-.add-product-form input,
-.add-product-form textarea {
-  font-family: 'Roboto', sans-serif;
-  color: #333333;
+.MuiMenuItem-root:hover {
+  background-color: #F0F0F0 !important; /* Light gray background on hover */
 }
 
-/* Form Header Divider */
-.add-product-form h2::after {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 3px;
-  background-color: #4CAF50;
-  margin: 10px auto;
+.MuiPaper-root.MuiMenu-paper {
+  background-color: #FFFFFF !important; /* Ensure the dropdown background is white */
 }
+
