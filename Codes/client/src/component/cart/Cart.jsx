@@ -64,7 +64,7 @@ const Cart = () => {
                             ))
                         } 
                         <ButtonWrapper>
-                            <StyledButton onClick={() => navigate('/payment')} >Place Order</StyledButton>
+                            <StyledButton onClick={() => navigate('/checkout')} >Place Order</StyledButton>
                         </ButtonWrapper>  
                     </LeftComponent>
                     <Grid item lg={3} md={3} sm={12} xs={12}>

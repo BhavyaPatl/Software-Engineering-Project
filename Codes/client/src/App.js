@@ -11,7 +11,7 @@ import Payment from './component/payment/payment';
 import PaymentDecision from './component/payment/paymentdecision';
 import PaymentConfirmation from './component/payment/paymentConfirmation';
 import PaymentFail from './component/payment/paymentFailure';
-
+import Checkout from './component/payment/Checkout';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -37,6 +37,7 @@ function App() {
           <Route path="/paymentdecision" element={<PaymentDecision />} />
           <Route path="/payment-success" element={<PaymentConfirmation />} />
           <Route path="/payment-fail" element={<PaymentFail />} />
+          <Route path='/checkout' element={<Checkout />} />
         </Routes>
       </Box>
       </BrowserRouter>

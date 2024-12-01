@@ -1,6 +1,7 @@
+import image1 from './images/Screenshot 2024-11-20 at 15.19.13.png'
 import image2 from './images/Screenshot 2024-11-20 at 15.17.42.png';
 import image3 from './images/Screenshot 2024-11-20 at 15.17.53.png';
-import image4 from './images/Screenshot 2024-11-20 at 15.19.13.png';
+import image4 from './images/Screenshot 2024-12-01 at 11.33.13.png';
 
 export const navData = [
     { url: 'https://rukminim1.flixcart.com/flap/128/128/image/f15c02bfeb02d15d.png?q=100', text: 'Top Offers' },
@@ -14,7 +15,7 @@ export const navData = [
 ];
 
 export const bannerData = [
-    { id: 1, url: 'https://rukminim1.flixcart.com/flap/3376/560/image/d117a62eb5fbb8e1.jpg?q=50' },
+    { id: 1, url: image1 },
     { id: 2, url: image2 },
     { id: 3, url: image3 },
     { id: 4, url: image4 }
