@@ -80,12 +80,12 @@ const accountInitialValue = {
     login: {
         view: 'login',
         heading: 'Login',
-        subHeading: 'Get access to your Orders, Wishlists and Recommendations'
+        subHeading: 'List Products, Create your Market and Start Selling'
     },
     signup: {
         view: 'signup',
-        heading: "Hello new Seller",
-        subHeading: 'Sign up with your mobile number to get started'
+        heading: "Hello New Seller!",
+        subHeading: 'Sign up and Start your Journey as a Seller with us'
     },
     email: {
         view: 'email',

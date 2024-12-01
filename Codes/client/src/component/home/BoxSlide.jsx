@@ -5,9 +5,16 @@ const Component = styled(Grid)`
     grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap: 20px;
     margin-top: 10px;
-    margin-bototm: 10px;
-   // alignmnet: 1fr 1fr 1fr 1fr;
-`
+    margin-bottom: 10px;
+
+    ${({ theme }) => theme.breakpoints.down('md')} {
+        grid-template-columns: 1fr 1fr;
+    }
+    ${({ theme }) => theme.breakpoints.down('sm')} {
+        grid-template-columns: 1fr;
+    }
+`;
+
 
 const DealText = styled(Typography)`
     font-size: 22px;
@@ -17,6 +24,8 @@ const DealText = styled(Typography)`
     margin-left: auto ;
     color: orange;
     text-align: center;
+
+    
 `
 const Deal = styled(Box)`
     display: flex;    
@@ -42,6 +51,9 @@ const IBox = styled(Box)`
 
 const Container = styled(Box)`
     background: #fff;
+     ${({ theme }) => theme.breakpoints.down('md')} {
+        margin-top: 10px;
+    }
     
 `
 const Image = styled('img')`
@@ -55,7 +67,10 @@ const Image = styled('img')`
 const BoxSlide = () => {
 
 
-    const title = "hello hi";
+    const title = "Daily Groceries";
+    const title1 = "Top Selling Mobiles";
+    const title2 = "Newest Arrivals";
+    const title3 = "Home Furnishing";
     return (
         <Component>
             <Container>
@@ -79,8 +94,8 @@ const BoxSlide = () => {
             <Container>
                 <Deal style={{background: 'white'}}>
                     <DealText>
-                            <span style={{ color: 'orange' }}>{title.split(' ')[0]}</span>{' '}
-                            <span style={{ color: 'black' }}>{title.split(' ').slice(1).join(' ')}</span>
+                            <span style={{ color: 'orange' }}>{title1.split(' ')[0]}</span>{' '}
+                            <span style={{ color: 'black' }}>{title1.split(' ').slice(1).join(' ')}</span>
                     </DealText>
                 </Deal>
                 <TRow>
@@ -97,8 +112,8 @@ const BoxSlide = () => {
             <Container>
                 <Deal style={{background: 'white'}}>
                     <DealText>
-                            <span style={{ color: 'orange' }}>{title.split(' ')[0]}</span>{' '}
-                            <span style={{ color: 'black' }}>{title.split(' ').slice(1).join(' ')}</span>
+                            <span style={{ color: 'orange' }}>{title2.split(' ')[0]}</span>{' '}
+                            <span style={{ color: 'black' }}>{title2.split(' ').slice(1).join(' ')}</span>
                     </DealText>
                 </Deal>
                 <TRow>
@@ -115,8 +130,8 @@ const BoxSlide = () => {
             <Container>
                 <Deal style={{background: 'white'}}>
                     <DealText>
-                            <span style={{ color: 'orange' }}>{title.split(' ')[0]}</span>{' '}
-                            <span style={{ color: 'black' }}>{title.split(' ').slice(1).join(' ')}</span>
+                            <span style={{ color: 'orange' }}>{title3.split(' ')[0]}</span>{' '}
+                            <span style={{ color: 'black' }}>{title3.split(' ').slice(1).join(' ')}</span>
                     </DealText>
                 </Deal>
                 <TRow>

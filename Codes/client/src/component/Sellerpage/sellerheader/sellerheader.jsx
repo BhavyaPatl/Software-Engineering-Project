@@ -62,7 +62,12 @@ const Header = () => {
                 <Menu/>
             </MenuButton>
 
-            <Drawer open={open} onClose={handleClose}>
+            <Drawer open={open} onClose={handleClose} PaperProps={{
+                        sx: {
+                            backgroundColor: '#051922',
+                        },
+                    }}
+            >
                 {list()}
             </Drawer>
 

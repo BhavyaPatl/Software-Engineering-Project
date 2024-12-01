@@ -10,7 +10,6 @@ import MidSection from './MidSection';
 import {styled,Box} from '@mui/material';
 import { getProducts } from '../../redux/actions/productActions';
 import { useDispatch,useSelector } from 'react-redux';
-import StaticSlide from './StaticSlide';
 import BoxSlide from './BoxSlide';
 
 
@@ -42,7 +41,6 @@ const Home = () => {
                 <Slide products={products} title="Suggesting Items" timer={false}/>
                 <Slide products={products} title="Top Selection" timer={false}/>
                 <MidSection/>
-                <StaticSlide products={products} title="Static"/>
                 <Slide products={products} title="Recommended Items" timer={false}/>
                 <Slide products={products} title="Trending Offers" timer={false}/>
                 <BoxSlide />

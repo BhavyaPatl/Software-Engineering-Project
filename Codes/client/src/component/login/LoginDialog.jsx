@@ -83,7 +83,7 @@ const accountInitialValue = {
     login: {
         view: 'login',
         heading: 'Login',
-        subHeading: 'Get access to your Orders, Wishlists and Recommendations'
+        subHeading: 'Start buying with the best deals and the newest products'
     },
     signup: {
         view: 'signup',
