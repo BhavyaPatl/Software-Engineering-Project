@@ -219,7 +219,6 @@ const LoginDialog = ({ open, setOpen }) => {
     const loginUser = async () => {
         let response = await authenticateLogin(login);
         const token =response.data.token;
-        const username = token.username;
         console.log(token);
         if (response.status === 200) {
             handleClose();
