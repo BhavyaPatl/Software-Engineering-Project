@@ -55,15 +55,95 @@ const AddProduct = () => {
     }
   };
 
+  const validateProductFields = (product) => {
+    const errors = {};
+
+    if (!product.id.trim()) {
+        errors.id = "Error: Product ID is required .";
+    } else if (!/^\d+$/.test(product.id)) {
+        errors.id = "Error: Product ID must contain only numeric characters .";
+    }
+
+    const urlRegex = /^(https?:\/\/[^\s]+)$/;
+    if (!product.url.trim()) {
+        errors.url = "Error: Image URL is required.";
+    } else if (!urlRegex.test(product.url)) {
+        errors.url = "Error: Invalid Image URL format.";
+    }
+
+    if (!product.detailUrl.trim()) {
+        errors.detailUrl = "Error: Detail Image URL is required .";
+    } else if (!urlRegex.test(product.detailUrl)) {
+        errors.detailUrl = "Error: Invalid Detail Image URL format .";
+    }
+
+    if (!product.title.shortTitle.trim()) {
+        errors.shortTitle = "Error: Short Title is required .";
+    } else if (/^\d+$/.test(product.title.shortTitle)) {
+        errors.shortTitle = "Error: Short Title must not be numeric only .";
+    }
+
+    if (!product.title.longTitle.trim()) {
+        errors.longTitle = "Error: Long Title is required (EC9).";
+    } else if (/^\d+$/.test(product.title.longTitle)) {
+        errors.longTitle = "Error: Long Title must not be numeric only .";
+    }
+
+    if (!product.price.mrp) {
+        errors.mrp = "Error: MRP is required .";
+    } else if (!/^\d+(\.\d+)?$/.test(product.price.mrp) || Number(product.price.mrp) <= 0) {
+        errors.mrp = "Error: MRP must be a positive number .";
+    }
+
+    if (!product.price.cost) {
+        errors.cost = "Error: Cost is required .";
+    } else if (!/^\d+(\.\d+)?$/.test(product.price.cost) || Number(product.price.cost) <= 0) {
+        errors.cost = "Error: Cost must be a positive number .";
+    }
+
+    if (product.price.discount === '') {
+        errors.discount = "Error: Discount is required .";
+    } else if (!/^\d+(\.\d+)?$/.test(product.price.discount) || Number(product.price.discount) < 0) {
+        errors.discount = "Error: Discount must be a non-negative number .";
+    }
+
+    if (product.quantity === '') {
+        errors.quantity = "Error: Quantity is required .";
+    } else if (!/^\d+$/.test(product.quantity) || Number(product.quantity) <= 0) {
+        errors.quantity = "Error: Quantity must be a positive integer .";
+    }
+
+    if (!product.description.trim()) {
+        errors.description = "Error: Description is required .";
+    }
+
+    if (!product.tagline.trim()) {
+        errors.tagline = "Error: Tagline is required .";
+    }
+
+    return errors;
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Product details submitted:', product);
 
     const response = await addProduct(product);
-    
-    if (!response) return;
+    // Validate product fields
+    const errors = validateProductFields(product);
+
+    if (Object.keys(errors).length > 0) {
+        alert(Object.values(errors).join("\n"));
+        console.error("Validation Errors:", errors);
+        return;
+    }
+
+    else{
+      if (!response) return;
     navigate('./');
-  };
+    }
+};
+
 
   return (
     <Box className="add-product-container">

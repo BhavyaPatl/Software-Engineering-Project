@@ -216,6 +216,60 @@ const LoginDialog = ({ open, setOpen }) => {
     };
     
 
+    const validateSignupFields = (signup) => {
+        const errors = {};
+    
+        if (!signup.firstname.trim()) {
+            errors.firstname = "Error: First name is required.";
+        } else if (!/^[a-zA-Z]+$/.test(signup.firstname)) {
+            errors.firstname = "Error: First name must contain only alphabetic characters.";
+        }
+    
+        if (!signup.lastname.trim()) {
+            errors.lastname = "Error: Last name is required.";
+        } else if (!/^[a-zA-Z]+$/.test(signup.lastname)) {
+            errors.lastname = "Error: Last name must contain only alphabetic characters.";
+        }
+    
+        if (!signup.username.trim()) {
+            errors.username = "Error: Username is required.";
+        } else if (!/^[a-zA-Z0-9]+$/.test(signup.username)) {
+            errors.username = "Error: Username must be alphanumeric.";
+        }
+    
+        if (!signup.email.trim()) {
+            errors.email = "Error: Email is required.";
+        } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(signup.email)) {
+            errors.email = "Error: Invalid email format.";
+        }
+    
+        if (!signup.password) {
+            errors.password = "Error: Password is required.";
+        } else {
+            const rules = [
+                { regex: /^.{8,}$/, message: "Error: Password must be at least 8 characters long." },
+                { regex: /[a-z]/, message: "Error: Password must contain at least one lowercase letter." },
+                { regex: /[A-Z]/, message: "Error: Password must contain at least one uppercase letter." },
+                { regex: /[0-9]/, message: "Error: Password must contain at least one number." },
+                { regex: /[\W_]/, message: "Error: Password must contain at least one special character." },
+            ];
+    
+            rules.forEach((rule) => {
+                if (!rule.regex.test(signup.password)) {
+                    errors.password = rule.message;
+                }
+            });
+        }
+    
+        if (!signup.phone.trim()) {
+            errors.phone = "Error: Phone number is required.";
+        } else if (!/^\+91\s\d{5}-\d{5}$/.test(signup.phone)) {
+            errors.phone = "Error: Invalid phone number";
+        }
+    
+        return errors;
+    };
+
     const loginUser = async () => {
         let response = await authenticateLogin(login);
         const token =response.data.token;
@@ -228,14 +282,26 @@ const LoginDialog = ({ open, setOpen }) => {
             setError(true);
         }
     };
+    
 
+    
     const signupUser = async () => {
         let response = await authenticateSignup(signup);
+        const errors = validateSignupFields(signup);
+        if (Object.keys(errors).length > 0) {
+            alert(Object.values(errors).join("\n"));
+            console.error("Validation Errors:", errors);
+            return;
+        }
+        else{
         if (!response) return;
         handleClose();
         console.log(response);
         setAccount(signup.firstname);
+        }
     };
+    
+    
     const handleSendOtp = async() => {
         let response  = await authenticateForgotPassword(email);
 
